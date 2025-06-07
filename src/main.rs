@@ -99,12 +99,11 @@ fn add_vec_vec<'a, const T: usize>(lhs: &Vec<vec<'a, T>>, rhs: &Vec<vec<'a, T>>)
     res
 }
 
-/*
 #[hax_lib::fstar::options("--z3rlimit 100")]
 #[requires(lhs.len() == rhs.len())]
 #[ensures(|res| res.len() >= 0 && res.len() <= usize::MAX)]
 fn sub_vec<'a, const T: usize>(lhs: &vec<'a, T>, rhs: &vec<'a, T>) -> vec<'a, T> {
-    let mut res = &[Scalar::ZERO; T];
+    let mut res = [Scalar::ZERO; T];
     for i in 0..(if lhs.len() < rhs.len() { lhs.len() } else { rhs.len() }) {
         res[i] = lhs[i] - rhs[i];
     }
@@ -117,16 +116,20 @@ fn sub_vec<'a, const T: usize>(lhs: &vec<'a, T>, rhs: &vec<'a, T>) -> vec<'a, T>
 #[ensures(|res| res.len() >= 0 && res.len() <= usize::MAX)]
 fn add_scalar_polynomium(lhs: &Polynomium<Scalar>, rhs: &Polynomium<Scalar>) -> Polynomium<Scalar> {
     let min_len = if lhs.len() < rhs.len() { lhs.len() } else { rhs.len() };
-    let coeffs = add_vec(&lhs.coeffs[..min_len].to_vec(), &rhs.coeffs[..min_len].to_vec());
+    let mut coeffs = vec![];
+    for i in 0..min_len {
+        coeffs.push(lhs.coeffs[i] + rhs.coeffs[i]);
+    }
     Polynomium {
         coeffs: if min_len < lhs.len() {
-            extend_from(&coeffs, &lhs.coeffs)
+            extend_from(&coeffs.to_vec(), &lhs.coeffs.to_vec())
         } else if min_len < rhs.len() {
-            extend_from(&coeffs, &rhs.coeffs)
-        } else { coeffs }
+            extend_from(&coeffs.to_vec(), &rhs.coeffs.to_vec())
+        } else { coeffs.to_vec() }
     }
 }
 
+/// For extending a polynomial of scalars.
 fn extend_from(lhs: &Vec<Scalar>, rhs: &Vec<Scalar>) -> Vec<Scalar> {
     let mut res = lhs.clone();
     for i in 0..rhs.len() {
@@ -140,7 +143,7 @@ fn extend_from(lhs: &Vec<Scalar>, rhs: &Vec<Scalar>) -> Vec<Scalar> {
         && rhs.len() >= 0 && rhs.len() <= usize::MAX)]
 #[ensures(|res| res.len() >= 0 && res.len() <= usize::MAX)]
 #[exclude()]
-fn add_vector_polynomium<'a>(lhs: &Polynomium<vec<'a>>, rhs: &Polynomium<vec<'a>>) -> Polynomium<vec<'a>> {
+fn add_vector_polynomium<'a, const T: usize>(lhs: &Polynomium<vec<'a, T>>, rhs: &Polynomium<vec<'a, T>>) -> Polynomium<vec<'a, T>> {
     let min_len = if lhs.len() < rhs.len() { lhs.len() } else { rhs.len() };
     let coeffs = add_vec_vec(&lhs.coeffs[..min_len].to_vec(), &rhs.coeffs[..min_len].to_vec());
     Polynomium {
@@ -153,11 +156,10 @@ fn add_vector_polynomium<'a>(lhs: &Polynomium<vec<'a>>, rhs: &Polynomium<vec<'a>
 }
 
 /// The same but with a vector of vectors
-fn extend_from_vec<'a>(lhs: &Vec<vec<'a>>, rhs: &Vec<vec<'a>>) -> Vec<vec<'a>> {
+fn extend_from_vec<'a, const T: usize>(lhs: &Vec<vec<'a, T>>, rhs: &Vec<vec<'a, T>>) -> Vec<vec<'a, T>> {
     let mut res = lhs.clone();
     for i in 0..rhs.len() {
         res.push(rhs[i].clone());
     }
     res
 }
-*/

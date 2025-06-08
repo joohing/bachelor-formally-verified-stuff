@@ -6,6 +6,11 @@
     "/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/core",
     "/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/rust_primitives",
     "/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proofs/fstar/extraction",
+    "/Users/jonathansamsing/.cargo/git/checkouts/libcrux-c3a2e0b268f26fe2/ebc5ce6/fstar-helpers/core-models/proofs/fstar/extraction",
+    "/Users/jonathansamsing/.cargo/git/checkouts/libcrux-c3a2e0b268f26fe2/ebc5ce6/libcrux-ml-kem/proofs/fstar/extraction",
+    "/Users/jonathansamsing/.cargo/git/checkouts/libcrux-c3a2e0b268f26fe2/ebc5ce6/libcrux-sha3/proofs/fstar/extraction",
+    "/Users/jonathansamsing/.cargo/git/checkouts/libcrux-c3a2e0b268f26fe2/ebc5ce6/proofs/fstar/extraction",
+    "/Users/jonathansamsing/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/hax-lib-0.3.1/proofs/fstar/extraction",
     "/Users/jonathansamsing/bachelor-formally-verified-stuff/proofs/fstar/extraction"
   ]
 }

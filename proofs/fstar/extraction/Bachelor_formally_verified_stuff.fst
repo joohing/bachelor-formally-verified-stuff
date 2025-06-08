@@ -29,28 +29,6 @@ include Bachelor_formally_verified_stuff.Bundle {impl_2 as impl_2}
 
 include Bachelor_formally_verified_stuff.Bundle {impl_3 as impl_3}
 
-include Bachelor_formally_verified_stuff.Bundle {add_vec as add_vec}
-
 include Bachelor_formally_verified_stuff.Bundle {get_summed as get_summed}
 
 include Bachelor_formally_verified_stuff.Bundle {get_zipped as get_zipped}
-
-include Bachelor_formally_verified_stuff.Bundle {all_vecs_eq_len as all_vecs_eq_len}
-
-include Bachelor_formally_verified_stuff.Bundle {add_vec_vec as add_vec_vec}
-
-include Bachelor_formally_verified_stuff.Bundle {sub_vec as sub_vec}
-
-include Bachelor_formally_verified_stuff.Bundle {add_scalar_polynomium as add_scalar_polynomium}
-
-include Bachelor_formally_verified_stuff.Bundle {extend_from as extend_from}
-
-include Bachelor_formally_verified_stuff.Bundle {add_vector_polynomium as add_vector_polynomium}
-
-include Bachelor_formally_verified_stuff.Bundle {extend_from_vec as extend_from_vec}
-
-include Bachelor_formally_verified_stuff.Bundle {simple_polynomial_mul as simple_polynomial_mul}
-
-include Bachelor_formally_verified_stuff.Bundle {simple_vector_polynomial_mul as simple_vector_polynomial_mul}
-
-include Bachelor_formally_verified_stuff.Bundle {inner_prod_scalars as inner_prod_scalars}

@@ -5,3 +5,7 @@ edition = "2024"
 
 [dependencies]
 hax-lib = { git = "https://github.com/hacspec/hax", version = "0.3.1" }
+
+[dev-dependencies]
+libcrux = { git = "https://github.com/cryspen/libcrux" }
+quickcheck_macros = { git = "https://github.com/BurntSushi/quickcheck" }

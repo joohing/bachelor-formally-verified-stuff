@@ -39,6 +39,12 @@ include Bachelor_formally_verified_stuff.Bundle {impl_1__from__linalg as impl_1}
 
 include Bachelor_formally_verified_stuff.Bundle {impl_2__from__linalg as impl_2}
 
-include Bachelor_formally_verified_stuff.Bundle {inner_prod_scalars__from__linalg as inner_prod_scalars}
+include Bachelor_formally_verified_stuff.Bundle {inner_prod_scalars as inner_prod_scalars}
 
 include Bachelor_formally_verified_stuff.Bundle {hadamard_vec as hadamard_vec}
+
+include Bachelor_formally_verified_stuff.Bundle {add_vec_vec as add_vec_vec}
+
+include Bachelor_formally_verified_stuff.Bundle {sub_vec as sub_vec}
+
+include Bachelor_formally_verified_stuff.Bundle {add_vec as add_vec}

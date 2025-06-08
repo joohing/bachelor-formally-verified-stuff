@@ -5,22 +5,6 @@
 
 use crate::*;
 
-/// This lets you go `scalar_vec![1, 2, 3]` and get a vec of scalars.
-/// As such, you might say this is a pretty cool macro.
-#[macro_export]
-macro_rules! scalar_vec {
-    ( $( $x:expr ),* ) => {
-        {
-            let mut v = Vec::new();
-            $(
-                let s = Scalar::from($x as u128);
-                v.push(s);
-            )*
-            v
-        }
-    }
-}
-
 pub trait Scalable {
     fn mul_vec_scalar(&self, rhs: Scalar) -> Self;
 }
@@ -88,5 +72,36 @@ fn hadamard_vec<'a, const T: usize>(a: &vec<'a, T>, b: &vec<'a, T>) -> vec<'a, T
     for i in 0..T {
         res[i] = a[i].clone() * b[i].clone();
     }
+    res
+}
+
+#[hax_lib::fstar::options("--z3rlimit 100")]
+#[requires(lhs.len() == rhs.len())]
+#[ensures(|res| res.len() >= 0 && res.len() <= usize::MAX)]
+pub fn add_vec_vec<'a, const T: usize>(lhs: &Vec<vec<'a, T>>, rhs: &Vec<vec<'a, T>>) -> Vec<vec<'a, T>> {
+    let mut res = vec![];
+    for i in 0..lhs.len() {
+        res.push(add_vec(&lhs[i], &rhs[i]));
+    }
+    res
+}
+
+#[hax_lib::fstar::options("--z3rlimit 100")]
+#[requires(lhs.len() == rhs.len())]
+#[ensures(|res| res.len() >= 0 && res.len() <= usize::MAX)]
+fn sub_vec<'a, const T: usize>(lhs: &vec<'a, T>, rhs: &vec<'a, T>) -> vec<'a, T> {
+    let mut res = [Scalar::ZERO; T];
+    for i in 0..(if lhs.len() < rhs.len() { lhs.len() } else { rhs.len() }) {
+        res[i] = lhs[i] - rhs[i];
+    }
+    res
+}
+
+#[hax_lib::fstar::options("--z3rlimit 100")]
+#[requires(lhs.len() == rhs.len())]
+#[ensures(|res| res.len() >= 0 && res.len() <= usize::MAX)]
+pub fn add_vec<'a, const T: usize>(lhs: &vec<'a, T>, rhs: &vec<'a, T>) -> vec<'a, T> {
+    let mut res = [Scalar::ZERO; T];
+    for i in 0..T { res[i] = lhs[i].clone() + rhs[i].clone(); }
     res
 }

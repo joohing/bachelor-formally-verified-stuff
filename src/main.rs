@@ -163,3 +163,299 @@ fn extend_from_vec<'a, const T: usize>(lhs: &Vec<vec<'a, T>>, rhs: &Vec<vec<'a, 
     }
     res
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::pedersen_commitment::*;
+    use crate::polynomium::*;
+    use crate::{convert::*, linalg::*};
+    use curve25519_dalek::{constants::RISTRETTO_BASEPOINT_POINT as G, scalar::Scalar};
+    use libcrux::{
+        digest::{sha3_512, Algorithm},
+        drbg::*,
+    };
+    use quickcheck_macros::quickcheck;
+
+    #[test]
+    /// Tests the trim method for scalar polynomiums.
+    fn test_polynomium_trim() {
+        let p = Polynomium { coeffs: scalar_vec![1, 0, 0, 2, 0, 0, 3, 0, 0] };
+        let res = p.trim();
+        let exp = Polynomium { coeffs: scalar_vec![1, 0, 0, 2, 0, 0, 3] };
+        println!("res: {}", res);
+        println!("exp: {}", exp);
+        assert_eq!(res, exp);
+    }
+
+    #[test]
+    /// Tests the trim method for scalar polynomiums.
+    fn test_vector_polynomium_trim() {
+        let p = Polynomium {
+            coeffs: vec![
+                scalar_vec![1, 0, 0],
+                scalar_vec![0, 0, 0],
+                scalar_vec![0, 0, 0],
+                scalar_vec![2, 0, 0],
+                scalar_vec![0, 0, 0],
+                scalar_vec![0, 0, 0],
+                scalar_vec![0, 0, 3],
+                scalar_vec![0, 0, 0],
+                scalar_vec![0, 0, 0]
+            ]
+        };
+        let res = p.trim();
+        let exp = Polynomium {
+            coeffs: vec![
+                scalar_vec![1, 0, 0],
+                scalar_vec![0, 0, 0],
+                scalar_vec![0, 0, 0],
+                scalar_vec![2, 0, 0],
+                scalar_vec![0, 0, 0],
+                scalar_vec![0, 0, 0],
+                scalar_vec![0, 0, 3]
+            ]
+        };
+        println!("res: {}", res);
+        println!("exp: {}", exp);
+        assert_eq!(res, exp);
+    }
+
+    #[test]
+    /// A simple polynomial evaluation test. Coefficients [1, 2, 3], and u = 2.
+    /// So p(x) = 1 + 2u + 3u^2, and p(2) = 1 + 4 + 12 = 17
+    fn test_simple_polynomial_evaluation() {
+        let coeffs = scalar_vec![1, 2, 3];
+        let u = Scalar::from(2 as u128);
+        let res = evaluate_polynomial(coeffs, u);
+
+        assert_eq!(res, Scalar::from(17u128));
+    }
+
+    #[quickcheck]
+    /// Test multiplication of scalar polynomials, uses Karatsuba.
+    fn test_scalar_polynomial_multiplication(cl: Vec<u128>, cr: Vec<u128>) {
+        let cl = vec_to_scalar_vec(cl);
+        let cr = vec_to_scalar_vec(cr);
+
+        let l = Polynomium { coeffs: cl };
+        let r = Polynomium { coeffs: cr };
+
+        let t = l.clone() * r.clone();
+        let x = Scalar::from(2 as u128);
+
+        let l_x = l.clone().eval(x);
+        let r_x = r.clone().eval(x);
+        let t_x = t.clone().eval(x);
+
+        assert_eq!(t_x, l_x * r_x);
+    }
+
+    #[quickcheck]
+    /// Test multiplication of vector polynomials.
+    fn test_vector_polynomial_multiplication(m: u128, n: u128, i: u128) {
+        let m = m % 30;
+        let n = n % 30;
+        let i = i % 40;
+
+        let cl: Vec<vec> = (0..m+1).map(|_| random_vec(i as usize)).collect();
+        let cr: Vec<vec> = (0..n+1).map(|_| random_vec(i as usize)).collect();
+
+        println!("cl len: {}", cl.len());
+        println!("cr len: {}", cr.len());
+
+        let l = Polynomium::new_from_vec(cl, Scalar::from(i));
+        let r = Polynomium::new_from_vec(cr, Scalar::from(i));
+
+        println!("l: {}", l);
+        println!("r: {}", r);
+
+        let t = l.clone() * r.clone();
+        let x = Scalar::from(2 as u128);
+
+        println!("t: {}", t);
+
+        let l_x = l.clone().eval(x);
+        let r_x = r.clone().eval(x);
+        let t_x = t.clone().eval(x);
+
+        let res = inner_prod_scalars(&l_x, &r_x);
+        assert_eq!(t_x, res);
+    }
+
+    #[quickcheck]
+    /// Simple test for comparing the karatsuba method, against the simple implementation
+    fn test_karatsuba_versus_simple(m: u128, n: u128, i: u128) {
+        let m = m % 30;
+        let n = n % 30;
+        let i = i % 40;
+
+        let cl: Vec<Vec<Scalar>> = (0..=m).map(|_| random_vec(i as usize)).collect();
+        let cr: Vec<Vec<Scalar>> = (0..=n).map(|_| random_vec(i as usize)).collect();
+
+        let l = Polynomium::new_from_vec(cl, Scalar::from(i));
+        let r = Polynomium::new_from_vec(cr, Scalar::from(i));
+
+        println!("karatsuba calculation running");
+        let karatsuba_result = karatsuba_vector_polynomial_mul(&l, &r);
+        println!("Simple calculation running");
+        let simple_result = simple_vector_polynomial_mul(&l, &r);
+
+        assert_eq!(simple_result, karatsuba_result.trim());
+    }
+    #[quickcheck]
+    /// Tests the trim method for scalar polynomiums.
+    fn test_polynomium_trims(n: u128, i: u128) {
+        let n = n % 20;
+        let i = i % 20;
+
+        let c: Vec<Vec<Scalar>> = (0..n+1).map(|_| random_vec(i as usize)).collect();
+
+        let p = Polynomium::new_from_vec(c, Scalar::from(i));
+        let trimmed = p.clone().trim();
+
+        let c: Vec<Scalar> = random_vec((n+1) as usize);
+        for i in c{
+            assert_eq!(trimmed.clone().eval(i), p.clone().eval(i));
+        }
+    }
+    #[quickcheck]
+    /// Test for associativy of polynomials under addition
+    fn test_polynomial_associativity(i: u128, o: u128, p: u128) {
+        let i = i % 10;
+        let p = p % 10;
+        let o = o % 15;
+
+        let cm: Vec<Scalar> = random_vec(i as usize);
+        let co: Vec<Scalar> = random_vec(o as usize);
+        let cn: Vec<Scalar> = random_vec(p as usize);
+
+        let pm = Polynomium::new_from_scalar(cm);
+        let pn = Polynomium::new_from_scalar(cn);
+        let po = Polynomium::new_from_scalar(co);
+
+        assert_eq!((pm.clone() + pn.clone()) + po.clone(), pm + (pn + po))
+    }
+    #[quickcheck]
+    /// Test for associativy of vector polynomials under addition
+    fn test_polynomial_vec_associativity(m:u128, n:u128, o:u128, i: u128) {
+        let i = i % 10;
+        let m = m % 5;
+        let n = n % 10;
+        let o = o % 8;
+
+        let cm: Vec<Vec<Scalar>> = (0..=m).map(|_| random_vec(i as usize)).collect();
+        let co: Vec<Vec<Scalar>> = (0..=o).map(|_| random_vec(i as usize)).collect();
+        let cn: Vec<Vec<Scalar>> = (0..=n).map(|_| random_vec(i as usize)).collect();
+
+        let pm = Polynomium::new_from_vec(cm, Scalar::from(i)).trim();
+        let pn = Polynomium::new_from_vec(cn, Scalar::from(i)).trim();
+        let po = Polynomium::new_from_vec(co, Scalar::from(i)).trim();
+
+        assert_eq!((pm.clone() + pn.clone()) + po.clone(), pm + (pn + po))
+    }
+    #[quickcheck]
+    /// Test for associativy of polynomials under addition
+    fn test_polynomial_commutativity(m: u128, p: u128) {
+        let m = m % 10;
+        let p = p % 10;
+
+        let cm: Vec<Scalar> = random_vec(p as usize);
+        let cp: Vec<Scalar> = random_vec(p as usize);
+
+        let pm = Polynomium::new_from_scalar(cm);
+        let pp = Polynomium::new_from_scalar(cp);
+
+        assert_eq!(pm.clone() + pp.clone(), pp + pm)
+    }
+    #[quickcheck]
+    /// Test for associativy of vector polynomials under addition
+    fn test_polynomial_vec_commutativity(m:u128, n:u128, o:u128, i: u128) {
+        let i = i % 10;
+        let m = m % 5;
+        let o = o % 8;
+
+        let cm: Vec<Vec<Scalar>> = (0..=m).map(|_| random_vec(i as usize)).collect();
+        let co: Vec<Vec<Scalar>> = (0..=o).map(|_| random_vec(i as usize)).collect();
+
+        let pm = Polynomium::new_from_vec(cm, Scalar::from(i)).trim();
+        let po = Polynomium::new_from_vec(co, Scalar::from(i)).trim();
+
+        assert_eq!(pm.clone() + po.clone(), po + pm)
+    }
+    #[quickcheck]
+    /// Test for identity element, for polynomials this is simply the polynomial: f(x)=0
+    fn test_polynomial_identity_element(m: u128, p: u128, i: u128) {
+        let m = m % 3;
+        let p = p % 3;
+        let i = i % 4;
+
+        let cm: Vec<Scalar> = random_vec(p as usize);
+        let cp: Vec<Vec<Scalar>> = (0..=p).map(|_| random_vec(i as usize)).collect();
+
+        let pm = Polynomium::new_from_scalar(cm);
+        let pp = Polynomium::new_from_vec(cp, Scalar::from(i));
+        let id = Polynomium::new_from_scalar(vec![Scalar::ZERO]);
+        let idv = Polynomium::new_from_vec(vec![vec![Scalar::ZERO]; i as usize], Scalar::from(i));
+
+        assert_eq!(pm.clone() + id, pm);
+        assert_eq!((pp.clone() + idv).trim(), pp.trim());
+    }
+    #[quickcheck]
+    /// Test
+    fn test_polynomial_inverse_elements(m:u128) {
+        let m = m % 10;
+        let cm: Vec<Scalar> = random_vec(m as usize);
+        let mut im: Vec<Scalar> = vec![Scalar::ZERO; cm.len()];
+        for i in 0..cm.len() {
+            im[i] -= cm[i];
+        }
+        let pm = Polynomium::new_from_scalar(cm);
+        let pi = Polynomium::new_from_scalar(im);
+        assert_eq!((pm.clone() + pi.clone()).trim(), Polynomium::new_from_scalar(vec![Scalar::ZERO]));
+    }
+
+    #[quickcheck]
+    fn test_polynomial_monoid(m:u128, p: u128, n:u128, i:u128) {
+        let m = m % 3;
+        let p = p % 3;
+        let i = i % 3;
+        let n = n % 3;
+
+        let cm: Vec<Scalar> = random_vec(m as usize);
+        let cp: Vec<Scalar> = random_vec(p as usize);
+        let cn: Vec<Scalar> = random_vec(n as usize);
+        let cvm: Vec<Vec<Scalar>> = (0..=m).map(|_| random_vec(i as usize)).collect();
+        let cvp: Vec<Vec<Scalar>> = (0..=p).map(|_| random_vec(i as usize)).collect();
+        let cvn: Vec<Vec<Scalar>> = (0..=n).map(|_| random_vec(i as usize)).collect();
+
+        let pm = Polynomium::new_from_scalar(cm);
+        let pp = Polynomium::new_from_scalar(cp);
+        let pn = Polynomium::new_from_scalar(cn);
+        let pvm = Polynomium::new_from_vec(cvm, Scalar::from(i));
+        let pvp = Polynomium::new_from_vec(cvp, Scalar::from(i));
+        let pvn = Polynomium::new_from_vec(cvn, Scalar::from(i));
+
+        assert_eq!(((pm.clone() * pp.clone()) * pn.clone()).trim(), (pm.clone() * (pp.clone() * pn.clone())).trim());
+        //assert_eq!(((pvm.clone() * pvp.clone()) * pvn.clone()).trim(), pvm.clone() * (pvp.clone() * pvn.clone()));
+    }
+    #[quickcheck]
+    /// Test for multiplicative identity element, for polynomials this is simply the polynomial: f(x)=1
+    fn test_polynomial_multiplicative_identitiy(m: u128, p: u128, i: u128) {
+        let m = m % 3;
+        let p = p % 3;
+        let i = i % 4;
+
+        let cm: Vec<Scalar> = random_vec(p as usize);
+        let cp: Vec<Vec<Scalar>> = (0..=p).map(|_| random_vec(i as usize)).collect();
+
+        let pm = Polynomium::new_from_scalar(cm);
+        let pp = Polynomium::new_from_vec(cp, Scalar::from(i));
+        let id = Polynomium::new_from_scalar(vec![Scalar::from(1 as u32)]);
+        let idv = Polynomium::new_from_vec(vec![vec![Scalar::ZERO]; i as usize], Scalar::from(i));
+
+        assert_eq!((pm.clone() * id).trim(), pm.trim());
+        //assert_eq!((pp.clone() * idv).trim(), pp.trim());
+    }
+
+}

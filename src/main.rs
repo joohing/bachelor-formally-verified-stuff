@@ -20,7 +20,6 @@ impl Polynomium<Scalar> {
     fn len(&self) -> usize { self.coeffs.len() }
 }
 
-#[exclude()]
 fn main() {
     let _1 = Scalar { v: 1 };
     let _2 = Scalar { v: 2 };
@@ -58,6 +57,13 @@ impl std::ops::Sub for Scalar {
     }
 }
 
+impl std::ops::Mul for Scalar {
+    type Output = Self;
+    fn mul(self, rhs: Self) -> Self::Output {
+        (0..rhs.v).fold(Scalar::ZERO, |acc, _| acc + self + self)
+    }
+}
+
 #[hax_lib::fstar::options("--z3rlimit 100")]
 #[requires(lhs.len() == rhs.len())]
 #[ensures(|res| res.len() >= 0 && res.len() <= usize::MAX)]
@@ -65,14 +71,6 @@ fn add_vec<'a, const T: usize>(lhs: &vec<'a, T>, rhs: &vec<'a, T>) -> vec<'a, T>
     let mut res = [Scalar::ZERO; T];
     for i in 0..T { res[i] = lhs[i].clone() + rhs[i].clone(); }
     res
-}
-
-#[requires(lhs.iter().zip(rhs.iter()).all(|(a, b)| a.len() == b.len()))]
-#[hax_lib::fstar::options("--z3rlimit 100")]
-fn test2<'a, const T: usize>(lhs: Vec<vec<'a, T>>, rhs: Vec<vec<'a, T>>) -> Vec<vec<'a, T>> {
-    let zipped = get_zipped(lhs, rhs);
-    let summed = get_summed(zipped);
-    vec![]
 }
 
 fn get_summed<'a, const T: usize>(v: Vec<(vec<'a, T>, vec<'a, T>)>) -> Vec<vec<'a, T>> {
@@ -142,10 +140,10 @@ fn extend_from(lhs: &Vec<Scalar>, rhs: &Vec<Scalar>) -> Vec<Scalar> {
 #[requires(lhs.len() >= 0 && lhs.len() <= usize::MAX
         && rhs.len() >= 0 && rhs.len() <= usize::MAX)]
 #[ensures(|res| res.len() >= 0 && res.len() <= usize::MAX)]
-#[exclude()]
 fn add_vector_polynomium<'a, const T: usize>(lhs: &Polynomium<vec<'a, T>>, rhs: &Polynomium<vec<'a, T>>) -> Polynomium<vec<'a, T>> {
     let min_len = if lhs.len() < rhs.len() { lhs.len() } else { rhs.len() };
     let coeffs = add_vec_vec(&lhs.coeffs[..min_len].to_vec(), &rhs.coeffs[..min_len].to_vec());
+    i + j > usize::MAX ? overflow
     Polynomium {
         coeffs: if min_len < lhs.len() {
             extend_from_vec(&coeffs, &lhs.coeffs)
@@ -162,4 +160,75 @@ fn extend_from_vec<'a, const T: usize>(lhs: &Vec<vec<'a, T>>, rhs: &Vec<vec<'a, 
         res.push(rhs[i].clone());
     }
     res
+}
+
+/// A simple, O(n²) algorithm for multiplying polynomials together.
+#[options("--z3rlimit 100")]
+#[requires(l.len() >= 0 && l.len() <= usize::MAX
+        && r.len() >= 0 && r.len() <= usize::MAX)]
+#[ensures(|res| res.len() >= 0 && res.len() <= usize::MAX)]
+fn simple_polynomial_mul(l: &Polynomium<Scalar>, r: &Polynomium<Scalar>) -> Polynomium<Scalar> {
+    if l.coeffs.is_empty() || r.coeffs.is_empty() {
+        return Polynomium { coeffs: vec![] };
+    }
+
+    let min_len = if l.len() < r.len() { l.len() } else { r.len() };
+    let mut coeffs = vec![];
+
+    for i in 0..min_len {
+        let sum = r.coeffs.iter().fold(Scalar::ZERO, |acc, e| acc + e.clone() * l.coeffs[i]);
+        coeffs.push(sum);
+    }
+
+    if min_len == l.len() {
+        for i in min_len..r.len() {
+            let sum = l.coeffs.iter().fold(Scalar::ZERO, |acc, e| acc + e.clone() * r.coeffs[i]);
+            coeffs.push(sum);
+        }
+    } else if min_len == r.len() {
+        for i in min_len..l.len() {
+            let sum = r.coeffs.iter().fold(Scalar::ZERO, |acc, e| acc + e.clone() * l.coeffs[i]);
+            coeffs.push(sum);
+        }
+    }
+
+    Polynomium { coeffs }
+}
+
+fn simple_vector_polynomial_mul<'a, const T: usize>(l: &Polynomium<vec<'a, T>>, r: &Polynomium<vec<'a, T>>) -> Polynomium<Scalar> {
+    if l.coeffs.is_empty() || r.coeffs.is_empty() {
+        return Polynomium { coeffs: vec![] };
+    }
+
+    let min_len = if l.len() < r.len() { l.len() } else { r.len() };
+    let mut coeffs = vec![];
+
+    for i in min_len..l.len() {
+        let sum = r.coeffs.iter().fold(Scalar::ZERO, |acc, e| acc + inner_prod_scalars(e, &l.coeffs[i]));
+        coeffs.push(sum);
+    }
+
+    if min_len == l.len() {
+        for i in min_len..r.len() {
+            let sum = l.coeffs.iter().fold(Scalar::ZERO, |acc, e| acc + inner_prod_scalars(e, &r.coeffs[i]));
+            coeffs.push(sum);
+        }
+    } else if min_len == r.len() {
+        for i in min_len..l.len() {
+            let sum = r.coeffs.iter().fold(Scalar::ZERO, |acc, e| acc + inner_prod_scalars(e, &l.coeffs[i]));
+            coeffs.push(sum);
+        }
+    }
+
+    Polynomium { coeffs }
+}
+
+/// Computes the inner product between two vectors
+/// of scalars, e.g. [1, 2, 3] x [4, 5, 6] = 32.
+pub fn inner_prod_scalars<'a, const T: usize>(A: &vec<'a, T>, B: &vec<'a, T>) -> Scalar {
+	let mut acc = Scalar::ZERO;
+    for (a, b) in A.iter().zip(B.iter()) {
+        acc = acc + a.clone() * b.clone();
+    }
+    acc
 }

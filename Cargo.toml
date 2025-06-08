@@ -3,5 +3,5 @@ name = "bachelor-formally-verified-stuff"
 version = "0.1.0"
 edition = "2024"
 
-[target."cfg(hax)".dependencies]
+[dependencies]
 hax-lib = { git = "https://github.com/hacspec/hax", version = "0.3.1" }

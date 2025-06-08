@@ -49,11 +49,11 @@ include Bachelor_formally_verified_stuff.Bundle {impl_7__new_from_vec as impl_7_
 
 include Bachelor_formally_verified_stuff.Bundle {impl_8__from__polynomium as impl_8}
 
-include Bachelor_formally_verified_stuff.Bundle {impl_9 as impl_9}
+include Bachelor_formally_verified_stuff.Bundle {impl_9__from__polynomium as impl_9}
 
-include Bachelor_formally_verified_stuff.Bundle {trim_rec as trim_rec}
+include Bachelor_formally_verified_stuff.Bundle {trim as trim}
 
-include Bachelor_formally_verified_stuff.Bundle {trim_vec_rec as trim_vec_rec}
+include Bachelor_formally_verified_stuff.Bundle {trim_vec as trim_vec}
 
 include Bachelor_formally_verified_stuff.Bundle {evaluate_polynomial as evaluate_polynomial}
 

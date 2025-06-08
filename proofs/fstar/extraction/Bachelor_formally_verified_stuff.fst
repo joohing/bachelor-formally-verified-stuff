@@ -9,8 +9,6 @@ include Bachelor_formally_verified_stuff.Bundle {main as main}
 
 include Bachelor_formally_verified_stuff.Bundle {t_Scalar as t_Scalar}
 
-include Bachelor_formally_verified_stuff.Bundle {impl_4 as impl_4}
-
 include Bachelor_formally_verified_stuff.Bundle {impl_5 as impl_5}
 
 include Bachelor_formally_verified_stuff.Bundle {impl_6 as impl_6}
@@ -19,15 +17,25 @@ include Bachelor_formally_verified_stuff.Bundle {impl_7 as impl_7}
 
 include Bachelor_formally_verified_stuff.Bundle {impl_8 as impl_8}
 
+include Bachelor_formally_verified_stuff.Bundle {impl_9 as impl_9}
+
 include Bachelor_formally_verified_stuff.Bundle {impl__ZERO as impl_Scalar__ZERO}
 
+include Bachelor_formally_verified_stuff.Bundle {impl__ONE as impl_Scalar__ONE}
+
 include Bachelor_formally_verified_stuff.Bundle {impl__from as impl_Scalar__from}
+
+include Bachelor_formally_verified_stuff.Bundle {impl__pow as impl_Scalar__pow}
+
+include Bachelor_formally_verified_stuff.Bundle {impl__invert as impl_Scalar__invert}
 
 include Bachelor_formally_verified_stuff.Bundle {impl_1 as impl_1}
 
 include Bachelor_formally_verified_stuff.Bundle {impl_2 as impl_2}
 
 include Bachelor_formally_verified_stuff.Bundle {impl_3 as impl_3}
+
+include Bachelor_formally_verified_stuff.Bundle {impl_4 as impl_4}
 
 include Bachelor_formally_verified_stuff.Bundle {get_summed as get_summed}
 

@@ -69,7 +69,7 @@ impl Trim<Polynomium<Scalar>> for Polynomium<Scalar> {
     fn trim(&self) -> Self {
         Polynomium {
             coeffs: {
-                let res = trim_rec(&self.coeffs);
+                let res = trim(&self.coeffs);
                 if res.is_empty() { vec![Scalar::ZERO] } else { res }
             }
         }
@@ -103,7 +103,7 @@ impl<'a, const T: usize> Trim<Polynomium<vec<'a, T>>> for Polynomium<vec<'a, T>>
     fn trim(&self) -> Self {
         Polynomium {
             coeffs: {
-                let res = trim_vec_rec(&self.coeffs);
+                let res = trim_vec(&self.coeffs);
                 if res.is_empty() { vec![new_zero_slice()] } else { res }
             }
         }
@@ -116,33 +116,30 @@ impl<'a, const T: usize> Eval<vec<'a, T>> for Polynomium<vec<'a, T>> {
     }
 }
 
-/// Recursive trim trailing zeroes.
-fn trim_rec(v: &Vec<Scalar>) -> Vec<Scalar> {
+fn trim(v: &Vec<Scalar>) -> Vec<Scalar> {
     let filtered_rev = v.iter().rev();
     let mut res = vec![];
     let mut is_trailing = true;
     for e in filtered_rev {
-        if !(is_trailing && *e == Scalar::ZERO) {
+        is_trailing = is_trailing && *e == Scalar::ZERO;
+        if !is_trailing {
             res.push(e.clone());
-        } else {
-            is_trailing = false;
         }
     }
-    res
+    res.iter().rev().map(|e| e.clone()).collect()
 }
 
-fn trim_vec_rec<'a, const T: usize>(v: &Vec<vec<'a, T>>) -> Vec<vec<'a, T>> {
+fn trim_vec<'a, const T: usize>(v: &Vec<vec<'a, T>>) -> Vec<vec<'a, T>> {
     let filtered_rev = v.iter().rev();
     let mut res = vec![];
     let mut is_trailing = true;
     for e in filtered_rev {
-        if !(is_trailing && e.iter().all(|e| *e == Scalar::ZERO)) {
+        is_trailing = is_trailing && e.iter().all(|e| *e == Scalar::ZERO);
+        if !is_trailing {
             res.push(e.clone());
-        } else {
-            is_trailing = false;
         }
     }
-    res
+    res.iter().rev().map(|e| e.clone()).collect()
 }
 
 /// Evaluates the polynomial given by a[0] + a[1]u + a[2]u^2 ...
@@ -198,25 +195,26 @@ fn simple_vector_polynomial_mul<'a, const T: usize>(l: &Polynomium<vec<'a, T>>, 
 #[ensures(|res| res.len() >= 0 && res.len() <= usize::MAX)]
 fn simple_polynomial_mul(l: &Polynomium<Scalar>, r: &Polynomium<Scalar>) -> Polynomium<Scalar> {
     if l.coeffs.is_empty() || r.coeffs.is_empty() {
-        return Polynomium { coeffs: vec![] };
+        return Polynomium { coeffs: vec![Scalar::ZERO] };
     }
 
     let min_len = if l.len() < r.len() { l.len() } else { r.len() };
-    let mut coeffs = vec![];
+    let max_len = if l.len() > r.len() { l.len() } else { r.len() };
+    let mut coeffs = Vec::with_capacity(max_len);
 
     for i in 0..min_len {
-        let sum = r.coeffs.iter().fold(Scalar::ZERO, |acc, e| acc + e.clone() * l.coeffs[i]);
+        let sum = r.coeffs.iter().fold(Scalar::ZERO, |acc, e| acc + *e * l.coeffs[i]);
         coeffs.push(sum);
     }
 
     if min_len == l.len() {
         for i in min_len..r.len() {
-            let sum = l.coeffs.iter().fold(Scalar::ZERO, |acc, e| acc + e.clone() * r.coeffs[i]);
+            let sum = l.coeffs.iter().fold(Scalar::ZERO, |acc, e| acc + *e * r.coeffs[i]);
             coeffs.push(sum);
         }
     } else if min_len == r.len() {
         for i in min_len..l.len() {
-            let sum = r.coeffs.iter().fold(Scalar::ZERO, |acc, e| acc + e.clone() * l.coeffs[i]);
+            let sum = r.coeffs.iter().fold(Scalar::ZERO, |acc, e| acc + *e * l.coeffs[i]);
             coeffs.push(sum);
         }
     }

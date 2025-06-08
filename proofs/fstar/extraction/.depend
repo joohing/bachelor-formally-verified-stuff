@@ -2,7 +2,7 @@
 # Executable: "/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/bin/.fstar.exe-wrapped"
 # Hash: unset
 # Running in directory "/Users/jonathansamsing/bachelor-formally-verified-stuff/proofs/fstar/extraction"
-# Command line arguments: "["/Users/jonathansamsing/.nix-profile/bin/fstar.exe", "--warn_error", "-321-331-241-274-239-271", "--cache_checked_modules", "--cache_dir", "/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked", "--already_cached", "+Prims+FStar+LowStar+C+Spec.Loops+TestLib", "--include", "/Users/jonathansamsing/.hax/hacl_home/lib", "--include", "/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/core", "--include", "/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/rust_primitives", "--include", "/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proofs/fstar/extraction", "--include", "/Users/jonathansamsing/bachelor-formally-verified-stuff/proofs/fstar/extraction", "--dep", "full", "Bachelor_formally_verified_stuff.fst", "--extract", "* -Prims -LowStar -FStar"]"
+# Command line arguments: "["/Users/jonathansamsing/.nix-profile/bin/fstar.exe", "--warn_error", "-321-331-241-274-239-271", "--cache_checked_modules", "--cache_dir", "/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked", "--already_cached", "+Prims+FStar+LowStar+C+Spec.Loops+TestLib", "--include", "/Users/jonathansamsing/.hax/hacl_home/lib", "--include", "/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/core", "--include", "/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/rust_primitives", "--include", "/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proofs/fstar/extraction", "--include", "/Users/jonathansamsing/bachelor-formally-verified-stuff/proofs/fstar/extraction", "--dep", "full", "Bachelor_formally_verified_stuff.Bundle.fst", "Bachelor_formally_verified_stuff.Linalg.fst", "Bachelor_formally_verified_stuff.Polynomium.fst", "Bachelor_formally_verified_stuff.fst", "--extract", "* -Prims -LowStar -FStar"]"
 
 /nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Calc.fst.checked: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Calc.fst \
@@ -144,13 +144,6 @@ FStar_Tactics_MApply.krml: \
 Core_Iter_Adapters_Map.krml: \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Map.fsti.checked
 
-/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.VConfig.fsti.checked: \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Stubs.VConfig.fsti \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
-
-FStar_VConfig.krml: \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.VConfig.fsti.checked
-
 /Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Alloc.Boxed.fst.checked: \
 	/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/core/Alloc.Boxed.fst \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
@@ -166,6 +159,13 @@ Alloc_Boxed.krml: \
 
 Alloc_Boxed.cmx: \
 	Alloc_Boxed.ml
+
+/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.VConfig.fsti.checked: \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Stubs.VConfig.fsti \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
+
+FStar_VConfig.krml: \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.VConfig.fsti.checked
 
 /nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.Effect.fsti.checked: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Tactics.Effect.fsti \
@@ -285,21 +285,6 @@ Core_Ops.cmx: \
 	Rust_primitives.cmx \
 	Core_Ops_Index.cmx
 
-/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Range.fsti.checked: \
-	/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/core/Core.Ops.Range.fsti \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.fst.checked \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Seq.fst.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Index.fst.checked \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.Typeclasses.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Option.fst.checked \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Pervasives.Native.fst.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Iterator.fst.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.fst.checked \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
-
-Core_Ops_Range.krml: \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Range.fsti.checked
-
 /nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Reflection.TermEq.fst.checked: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Reflection.TermEq.fst \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Reflection.TermEq.fsti.checked \
@@ -363,6 +348,21 @@ FStar_Monotonic_Heap.ml: \
 
 FStar_Monotonic_Heap.krml: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Monotonic.Heap.fst.checked
+
+/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Range.fsti.checked: \
+	/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/core/Core.Ops.Range.fsti \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Seq.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Index.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.Typeclasses.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Option.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Pervasives.Native.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Iterator.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
+
+Core_Ops_Range.krml: \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Range.fsti.checked
 
 /nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Preorder.fst.checked: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Preorder.fst \
@@ -464,28 +464,6 @@ Core_Marker.krml: \
 Core_Marker.cmx: \
 	Core_Marker.ml
 
-/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Collect.fst.checked: \
-	/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/core/Core.Iter.Traits.Collect.fst \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Collect.fst.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Iterator.fst.checked \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.Typeclasses.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.fst.checked \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
-
-Core_Iter_Traits_Collect.ml: \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Collect.fst.checked
-
-Core_Iter_Traits_Collect.fs: \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Collect.fst.checked
-
-Core_Iter_Traits_Collect.krml: \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Collect.fst.checked
-
-Core_Iter_Traits_Collect.cmx: \
-	Core_Iter_Traits_Collect.ml \
-	Rust_primitives.cmx \
-	Core_Iter_Traits_Iterator.cmx
-
 /nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.V1.fsti.checked: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Tactics.V1.fsti \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.SMT.fsti.checked \
@@ -520,6 +498,28 @@ FStar_Tactics_V1.krml: \
 
 FStar_Reflection_V1_Builtins.krml: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.Reflection.V1.Builtins.fsti.checked
+
+/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Collect.fst.checked: \
+	/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/core/Core.Iter.Traits.Collect.fst \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Collect.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Iterator.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.Typeclasses.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
+
+Core_Iter_Traits_Collect.ml: \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Collect.fst.checked
+
+Core_Iter_Traits_Collect.fs: \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Collect.fst.checked
+
+Core_Iter_Traits_Collect.krml: \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Collect.fst.checked
+
+Core_Iter_Traits_Collect.cmx: \
+	Core_Iter_Traits_Collect.ml \
+	Rust_primitives.cmx \
+	Core_Iter_Traits_Iterator.cmx
 
 /Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.fst.checked: \
 	/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/core/Core.fst \
@@ -664,6 +664,31 @@ FStar_StrongExcludedMiddle.ml: \
 FStar_StrongExcludedMiddle.krml: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.StrongExcludedMiddle.fst.checked
 
+/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.TypeChecker.Core.fsti.checked: \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Stubs.TypeChecker.Core.fsti \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
+
+FStar_TypeChecker_Core.krml: \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.TypeChecker.Core.fsti.checked
+
+/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Enumerate.fst.checked: \
+	/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/core/Core.Iter.Adapters.Enumerate.fst \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
+
+Core_Iter_Adapters_Enumerate.ml: \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Enumerate.fst.checked
+
+Core_Iter_Adapters_Enumerate.fs: \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Enumerate.fst.checked
+
+Core_Iter_Adapters_Enumerate.krml: \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Enumerate.fst.checked
+
+Core_Iter_Adapters_Enumerate.cmx: \
+	Core_Iter_Adapters_Enumerate.ml \
+	Rust_primitives.cmx
+
 /Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.fst.checked: \
 	/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/rust_primitives/Rust_primitives.Hax.fst \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/Prims.fst.checked \
@@ -700,41 +725,6 @@ Rust_primitives_Hax.cmx: \
 	Core_Iter_Traits_Iterator.cmx \
 	Core_Ops_Control_flow.cmx
 
-/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.TypeChecker.Core.fsti.checked: \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Stubs.TypeChecker.Core.fsti \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
-
-FStar_TypeChecker_Core.krml: \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.TypeChecker.Core.fsti.checked
-
-/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Enumerate.fst.checked: \
-	/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/core/Core.Iter.Adapters.Enumerate.fst \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.fst.checked \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
-
-Core_Iter_Adapters_Enumerate.ml: \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Enumerate.fst.checked
-
-Core_Iter_Adapters_Enumerate.fs: \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Enumerate.fst.checked
-
-Core_Iter_Adapters_Enumerate.krml: \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Enumerate.fst.checked
-
-Core_Iter_Adapters_Enumerate.cmx: \
-	Core_Iter_Adapters_Enumerate.ml \
-	Rust_primitives.cmx
-
-/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Pervasives.Native.fst.checked: \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Pervasives.Native.fst \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/Prims.fst.checked
-
-FStar_Pervasives_Native.ml: \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Pervasives.Native.fst.checked
-
-FStar_Pervasives_Native.krml: \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Pervasives.Native.fst.checked
-
 /nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Prelude.fsti \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Attributes.fsti.checked \
@@ -745,6 +735,16 @@ FStar_Pervasives_Native.krml: \
 
 FStar_Prelude.krml: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
+
+/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Pervasives.Native.fst.checked: \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Pervasives.Native.fst \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/Prims.fst.checked
+
+FStar_Pervasives_Native.ml: \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Pervasives.Native.fst.checked
+
+FStar_Pervasives_Native.krml: \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Pervasives.Native.fst.checked
 
 /nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Sealed.fsti.checked: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Sealed.fsti \
@@ -871,16 +871,16 @@ FStar_Reflection_V2_Formula.ml: \
 FStar_Reflection_V2_Formula.krml: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Reflection.V2.Formula.fst.checked
 
+/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Ghost.fsti.checked: \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Ghost.fsti \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
+
 /Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Zip.fsti.checked: \
 	/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/core/Core.Iter.Adapters.Zip.fsti \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
 
 Core_Iter_Adapters_Zip.krml: \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Zip.fsti.checked
-
-/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Ghost.fsti.checked: \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Ghost.fsti \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
 
 /Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Deref.fst.checked: \
 	/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/core/Core.Ops.Deref.fst \
@@ -977,6 +977,27 @@ FStar_Tactics_NamedView.krml: \
 Core_Iter_Adapters_Take.krml: \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Take.fsti.checked
 
+/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Bachelor_formally_verified_stuff.Linalg.fst.checked: \
+	Bachelor_formally_verified_stuff.Linalg.fst \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Bachelor_formally_verified_stuff.Bundle.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Mul.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
+
+Bachelor_formally_verified_stuff_Linalg.ml: \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Bachelor_formally_verified_stuff.Linalg.fst.checked
+
+Bachelor_formally_verified_stuff_Linalg.fs: \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Bachelor_formally_verified_stuff.Linalg.fst.checked
+
+Bachelor_formally_verified_stuff_Linalg.krml: \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Bachelor_formally_verified_stuff.Linalg.fst.checked
+
+Bachelor_formally_verified_stuff_Linalg.cmx: \
+	Bachelor_formally_verified_stuff_Linalg.ml \
+	Core.cmx \
+	Bachelor_formally_verified_stuff_Bundle.cmx
+
 /nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.BitVector.fsti.checked: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.BitVector.fsti \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Seq.Base.fsti.checked \
@@ -1066,34 +1087,7 @@ Rust_primitives_BitVectors.krml: \
 
 /Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Bachelor_formally_verified_stuff.fst.checked: \
 	Bachelor_formally_verified_stuff.fst \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Pervasives.Native.fst.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Zip.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Map.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.Monomorphized_update_at.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.Folds.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Num.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Range.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Arith.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Collect.fst.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Deref.fst.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Slice.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Iterator.fst.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Slice.Iter.fst.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Rev.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Alloc.Boxed.fst.checked \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.List.Tot.fst.checked \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Pervasives.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.fst.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Alloc.Slice.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.fst.checked \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/Prims.fst.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Cmp.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Marker.fst.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Fmt.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Clone.fst.checked \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.Typeclasses.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Alloc.Alloc.fst.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Alloc.Vec.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Bachelor_formally_verified_stuff.Bundle.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Mul.fst.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
@@ -1110,29 +1104,7 @@ Bachelor_formally_verified_stuff.krml: \
 Bachelor_formally_verified_stuff.cmx: \
 	Bachelor_formally_verified_stuff.ml \
 	Core.cmx \
-	Alloc_Vec.cmx \
-	Alloc_Alloc.cmx \
-	Core_Clone.cmx \
-	Core_Fmt.cmx \
-	Core_Marker.cmx \
-	Core_Cmp.cmx \
-	Rust_primitives_Hax.cmx \
-	Alloc_Slice.cmx \
-	Rust_primitives.cmx \
-	Alloc_Boxed.cmx \
-	Core_Iter_Adapters_Rev.cmx \
-	Core_Slice_Iter.cmx \
-	Core_Iter_Traits_Iterator.cmx \
-	Core_Slice.cmx \
-	Core_Ops_Deref.cmx \
-	Core_Iter_Traits_Collect.cmx \
-	Core_Ops_Arith.cmx \
-	Core_Ops_Range.cmx \
-	Core_Num.cmx \
-	Rust_primitives_Hax_Folds.cmx \
-	Rust_primitives_Hax_Monomorphized_update_at.cmx \
-	Core_Iter_Adapters_Map.cmx \
-	Core_Iter_Adapters_Zip.cmx
+	Bachelor_formally_verified_stuff_Bundle.cmx
 
 /nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Float.fsti.checked: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Float.fsti \
@@ -1201,6 +1173,16 @@ FStar_Exn.ml: \
 FStar_Exn.krml: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Exn.fst.checked
 
+/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.PropositionalExtensionality.fst.checked: \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.PropositionalExtensionality.fst \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
+
+FStar_PropositionalExtensionality.ml: \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.PropositionalExtensionality.fst.checked
+
+FStar_PropositionalExtensionality.krml: \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.PropositionalExtensionality.fst.checked
+
 /Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Iterator.fst.checked: \
 	/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/core/Core.Iter.Traits.Iterator.fst \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Sources.Repeat_with.fsti.checked \
@@ -1238,16 +1220,6 @@ Core_Iter_Traits_Iterator.cmx: \
 	Core_Iter_Adapters_Zip.cmx \
 	Core_Iter_Adapters_Take.cmx \
 	Core_Iter_Sources_Repeat_with.cmx
-
-/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.PropositionalExtensionality.fst.checked: \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.PropositionalExtensionality.fst \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
-
-FStar_PropositionalExtensionality.ml: \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.PropositionalExtensionality.fst.checked
-
-FStar_PropositionalExtensionality.krml: \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.PropositionalExtensionality.fst.checked
 
 /Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Step_by.fst.checked: \
 	/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/core/Core.Iter.Adapters.Step_by.fst \
@@ -1321,6 +1293,27 @@ FStar_All.krml: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.BV.Lemmas.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.Effect.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
+
+/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Bachelor_formally_verified_stuff.Polynomium.fst.checked: \
+	Bachelor_formally_verified_stuff.Polynomium.fst \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Bachelor_formally_verified_stuff.Bundle.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Mul.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
+
+Bachelor_formally_verified_stuff_Polynomium.ml: \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Bachelor_formally_verified_stuff.Polynomium.fst.checked
+
+Bachelor_formally_verified_stuff_Polynomium.fs: \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Bachelor_formally_verified_stuff.Polynomium.fst.checked
+
+Bachelor_formally_verified_stuff_Polynomium.krml: \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Bachelor_formally_verified_stuff.Polynomium.fst.checked
+
+Bachelor_formally_verified_stuff_Polynomium.cmx: \
+	Bachelor_formally_verified_stuff_Polynomium.ml \
+	Core.cmx \
+	Bachelor_formally_verified_stuff_Bundle.cmx
 
 /nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.SMT.fsti.checked: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Tactics.SMT.fsti \
@@ -1433,19 +1426,6 @@ FStar_Reflection_V2_Derived_Lemmas.ml: \
 FStar_Reflection_V2_Derived_Lemmas.krml: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Reflection.V2.Derived.Lemmas.fst.checked
 
-/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.Folds.fsti.checked: \
-	/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/rust_primitives/Rust_primitives.Hax.Folds.fsti \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Math.Lemmas.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Control_flow.fst.checked \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Seq.fst.checked \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Mul.fst.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Range.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.fst.checked \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
-
-Rust_primitives_Hax_Folds.krml: \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.Folds.fsti.checked
-
 /nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.Tactics.V1.Builtins.fsti.checked: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Stubs.Tactics.V1.Builtins.fsti \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.Tactics.Unseal.fsti.checked \
@@ -1460,6 +1440,19 @@ Rust_primitives_Hax_Folds.krml: \
 
 FStar_Tactics_V1_Builtins.krml: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.Tactics.V1.Builtins.fsti.checked
+
+/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.Folds.fsti.checked: \
+	/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/rust_primitives/Rust_primitives.Hax.Folds.fsti \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Math.Lemmas.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Control_flow.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Seq.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Mul.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Range.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
+
+Rust_primitives_Hax_Folds.krml: \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.Folds.fsti.checked
 
 /nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.List.Tot.Properties.fsti.checked: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.List.Tot.Properties.fsti \
@@ -1553,17 +1546,6 @@ Core_Iter.krml: \
 Core_Iter_Adapters_Rev.krml: \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Rev.fsti.checked
 
-/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.Monomorphized_update_at.fsti.checked: \
-	/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/rust_primitives/Rust_primitives.Hax.Monomorphized_update_at.fsti \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Seq.fst.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Range.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.fst.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.fst.checked \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
-
-Rust_primitives_Hax_Monomorphized_update_at.krml: \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.Monomorphized_update_at.fsti.checked
-
 /Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Index.fst.checked: \
 	/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/core/Core.Ops.Index.fst \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.Typeclasses.fsti.checked \
@@ -1580,6 +1562,17 @@ Core_Ops_Index.krml: \
 
 Core_Ops_Index.cmx: \
 	Core_Ops_Index.ml
+
+/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.Monomorphized_update_at.fsti.checked: \
+	/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/rust_primitives/Rust_primitives.Hax.Monomorphized_update_at.fsti \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Seq.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Range.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
+
+Rust_primitives_Hax_Monomorphized_update_at.krml: \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.Monomorphized_update_at.fsti.checked
 
 /nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Seq.Base.fst.checked: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Seq.Base.fst \
@@ -1616,6 +1609,14 @@ FStar_BitVector.krml: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.Reflection.Types.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
 
+/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Reflection.V1.Compare.fsti.checked: \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Reflection.V1.Compare.fsti \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Reflection.V2.Compare.fsti.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
+
+FStar_Reflection_V1_Compare.krml: \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Reflection.V1.Compare.fsti.checked
+
 /Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Arith.fsti.checked: \
 	/Users/jonathansamsing/.cargo/git/checkouts/hax-62040e6a6d802cb8/3c066cd/hax-lib/proof-libs/fstar/core/Core.Ops.Arith.fsti \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.Typeclasses.fsti.checked \
@@ -1625,14 +1626,6 @@ FStar_BitVector.krml: \
 
 Core_Ops_Arith.krml: \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Arith.fsti.checked
-
-/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Reflection.V1.Compare.fsti.checked: \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Reflection.V1.Compare.fsti \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Reflection.V2.Compare.fsti.checked \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
-
-FStar_Reflection_V1_Compare.krml: \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Reflection.V1.Compare.fsti.checked
 
 /nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.UInt32.fsti.checked: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.UInt32.fsti \
@@ -2139,6 +2132,76 @@ FStar_Tactics_V2_Derived.krml: \
 
 Core_Num_Error.krml: \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Num.Error.fsti.checked
+
+/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Bachelor_formally_verified_stuff.Bundle.fst.checked: \
+	Bachelor_formally_verified_stuff.Bundle.fst \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Rev.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Alloc.Boxed.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Alloc.Slice.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Collect.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Pervasives.Native.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Zip.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Deref.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Slice.Iter.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Map.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Alloc.Alloc.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Alloc.Vec.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.List.Tot.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Pervasives.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.Monomorphized_update_at.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.Folds.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Num.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Slice.fsti.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/Prims.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Range.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Iterator.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Arith.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Fmt.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Cmp.fsti.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.Typeclasses.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Marker.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Clone.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Mul.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked
+
+Bachelor_formally_verified_stuff_Bundle.ml: \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Bachelor_formally_verified_stuff.Bundle.fst.checked
+
+Bachelor_formally_verified_stuff_Bundle.fs: \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Bachelor_formally_verified_stuff.Bundle.fst.checked
+
+Bachelor_formally_verified_stuff_Bundle.krml: \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Bachelor_formally_verified_stuff.Bundle.fst.checked
+
+Bachelor_formally_verified_stuff_Bundle.cmx: \
+	Bachelor_formally_verified_stuff_Bundle.ml \
+	Core.cmx \
+	Core_Clone.cmx \
+	Core_Marker.cmx \
+	Core_Cmp.cmx \
+	Core_Fmt.cmx \
+	Core_Ops_Arith.cmx \
+	Core_Iter_Traits_Iterator.cmx \
+	Core_Ops_Range.cmx \
+	Core_Slice.cmx \
+	Core_Num.cmx \
+	Rust_primitives_Hax.cmx \
+	Rust_primitives_Hax_Folds.cmx \
+	Rust_primitives_Hax_Monomorphized_update_at.cmx \
+	Alloc_Vec.cmx \
+	Alloc_Alloc.cmx \
+	Core_Iter_Adapters_Map.cmx \
+	Core_Slice_Iter.cmx \
+	Core_Ops_Deref.cmx \
+	Core_Iter_Adapters_Zip.cmx \
+	Core_Iter_Traits_Collect.cmx \
+	Alloc_Slice.cmx \
+	Rust_primitives.cmx \
+	Alloc_Boxed.cmx \
+	Core_Iter_Adapters_Rev.cmx
 
 /nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.Tactics.V2.Builtins.fsti.checked: \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.Stubs.Tactics.V2.Builtins.fsti \
@@ -2900,6 +2963,9 @@ ALL_FST_FILES= \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/FStar.UInt8.fst \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/Prims.fst \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib/legacy/FStar.ErasedLogic.fst \
+	Bachelor_formally_verified_stuff.Bundle.fst \
+	Bachelor_formally_verified_stuff.Linalg.fst \
+	Bachelor_formally_verified_stuff.Polynomium.fst \
 	Bachelor_formally_verified_stuff.fst
 
 ALL_FSTI_FILES= \
@@ -3062,6 +3128,7 @@ ALL_CHECKED_FILES= \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.PredicateExtensionality.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Set.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.Tactics.V2.Builtins.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Bachelor_formally_verified_stuff.Bundle.fst.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Num.Error.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.V2.Derived.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Classical.Sugar.fst.checked \
@@ -3100,13 +3167,13 @@ ALL_CHECKED_FILES= \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Math.Lemmas.fst.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Result.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.UInt32.fsti.checked \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Reflection.V1.Compare.fsti.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Arith.fsti.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Reflection.V1.Compare.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Reflection.V2.Compare.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.BitVector.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Seq.Base.fst.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Index.fst.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.Monomorphized_update_at.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Index.fst.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Rev.fsti.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Set.fsti.checked \
@@ -3116,8 +3183,8 @@ ALL_CHECKED_FILES= \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.Reflection.V2.Data.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Mul.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.List.Tot.Properties.fsti.checked \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.Tactics.V1.Builtins.fsti.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.Folds.fsti.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.Tactics.V1.Builtins.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Reflection.V2.Derived.Lemmas.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Sealed.Inhabited.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Issue.fsti.checked \
@@ -3128,14 +3195,15 @@ ALL_CHECKED_FILES= \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Squash.fst.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Default.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.SMT.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Bachelor_formally_verified_stuff.Polynomium.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.BV.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.All.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.Print.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.ErasedLogic.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.Syntax.Syntax.fsti.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Step_by.fst.checked \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.PropositionalExtensionality.fst.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Iterator.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.PropositionalExtensionality.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Exn.fst.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Fmt.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.FunctionalExtensionality.fsti.checked \
@@ -3150,6 +3218,7 @@ ALL_CHECKED_FILES= \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.UInt64.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.Typeclasses.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.BitVector.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Bachelor_formally_verified_stuff.Linalg.fst.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Take.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.NamedView.fst.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Slice.Iter.fst.checked \
@@ -3157,8 +3226,8 @@ ALL_CHECKED_FILES= \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.Effect.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Math.Lemmas.fsti.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Deref.fst.checked \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Ghost.fsti.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Zip.fsti.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Ghost.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Reflection.V2.Formula.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.UInt8.fsti.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Num.fsti.checked \
@@ -3168,11 +3237,11 @@ ALL_CHECKED_FILES= \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Result_Option_bundle.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Reflection.V2.Collect.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Sealed.fsti.checked \
-	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Pervasives.Native.fst.checked \
+	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Prelude.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.fst.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Enumerate.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.TypeChecker.Core.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.Hax.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.StrongExcludedMiddle.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Seq.Properties.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.Reflection.V2.Builtins.fsti.checked \
@@ -3183,19 +3252,19 @@ ALL_CHECKED_FILES= \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.MApply0.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.List.Tot.Base.fst.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Collect.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.Reflection.V1.Builtins.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.V1.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Traits.Collect.fst.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Marker.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.V2.Bare.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Heap.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.V2.SyntaxHelpers.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.Names.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Preorder.fst.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Range.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Monotonic.Heap.fst.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Option.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Reflection.TermEq.fst.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.Range.fsti.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Ops.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Reflection.V1.Derived.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.Visit.fst.checked \
@@ -3203,8 +3272,8 @@ ALL_CHECKED_FILES= \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Rust_primitives.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.Reflection.V1.Data.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.Effect.fsti.checked \
-	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Alloc.Boxed.fst.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Stubs.VConfig.fsti.checked \
+	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Alloc.Boxed.fst.checked \
 	/Users/jonathansamsing/bachelor-formally-verified-stuff/.fstar-cache/checked/Core.Iter.Adapters.Map.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Seq.Base.fsti.checked \
 	/nix/store/nfxnbjpzzjnml2xkg8wgfqmhp9f496m0-ocaml4.14.2-fstar-2025.03.25/lib/fstar/ulib.checked/FStar.Tactics.MApply.fst.checked \
@@ -3235,11 +3304,14 @@ ALL_FS_FILES= \
 	Rust_primitives_Hax.fs \
 	Hax_lib_Prop.fs \
 	Core.fs \
+	Alloc_Vec.fs \
 	Core_Iter_Traits_Collect.fs \
 	Core_Ops_Deref.fs \
-	Alloc_Vec.fs \
 	Core_Clone.fs \
-	Bachelor_formally_verified_stuff.fs
+	Bachelor_formally_verified_stuff_Bundle.fs \
+	Bachelor_formally_verified_stuff.fs \
+	Bachelor_formally_verified_stuff_Linalg.fs \
+	Bachelor_formally_verified_stuff_Polynomium.fs
 
 ALL_ML_FILES= \
 	Core_Ops_Index.ml \
@@ -3259,11 +3331,14 @@ ALL_ML_FILES= \
 	Rust_primitives_Hax.ml \
 	Hax_lib_Prop.ml \
 	Core.ml \
+	Alloc_Vec.ml \
 	Core_Iter_Traits_Collect.ml \
 	Core_Ops_Deref.ml \
-	Alloc_Vec.ml \
 	Core_Clone.ml \
-	Bachelor_formally_verified_stuff.ml
+	Bachelor_formally_verified_stuff_Bundle.ml \
+	Bachelor_formally_verified_stuff.ml \
+	Bachelor_formally_verified_stuff_Linalg.ml \
+	Bachelor_formally_verified_stuff_Polynomium.ml
 
 ALL_KRML_FILES= \
 	Core_Ops_Index.krml \
@@ -3302,15 +3377,18 @@ ALL_KRML_FILES= \
 	Core_Num.krml \
 	Core.krml \
 	Core_Cmp.krml \
-	Rust_primitives_Hax_Folds.krml \
-	Rust_primitives_Hax_Monomorphized_update_at.krml \
-	Core_Iter_Traits_Collect.krml \
-	Core_Ops_Deref.krml \
 	Alloc_Vec_Drain.krml \
 	Alloc_Vec.krml \
 	Alloc_Slice.krml \
+	Core_Iter_Traits_Collect.krml \
+	Core_Ops_Deref.krml \
+	Rust_primitives_Hax_Monomorphized_update_at.krml \
+	Rust_primitives_Hax_Folds.krml \
 	Core_Fmt_Rt.krml \
 	Core_Fmt.krml \
 	Core_Clone.krml \
-	Bachelor_formally_verified_stuff.krml
+	Bachelor_formally_verified_stuff_Bundle.krml \
+	Bachelor_formally_verified_stuff.krml \
+	Bachelor_formally_verified_stuff_Linalg.krml \
+	Bachelor_formally_verified_stuff_Polynomium.krml
 

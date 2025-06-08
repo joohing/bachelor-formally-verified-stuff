@@ -1,72 +1,15 @@
 #![allow(non_camel_case_types)]
 #![allow(unused_imports)]
 
-use hax_lib::{requires, exclude, attributes, ensures, fstar, fstar::options};
+mod polynomium;
+mod linalg;
 
-const p: u128 = 123456789;
+use hax_lib::{requires, exclude, attributes, ensures, fstar, fstar::options};
+use crate::polynomium::*;
+
+const PRIME: u128 = 123456789;
 
 type vec<'a, const T: usize> = [Scalar; T];
-
-#[derive(Clone, Debug, PartialEq)]
-pub struct Polynomium<T> {
-    pub coeffs: Vec<T>,
-}
-
-impl<'a, const T: usize> Polynomium<vec<'_, T>> {
-    fn len(&self) -> usize { self.coeffs.len() }
-
-    /// In order to have all inputs give a valid group element we make it zero if
-    /// the given vector is empty.
-    fn new_from_vec(v: Vec<vec<'a, T>>) -> Self {
-        Self {
-            coeffs: if v.is_empty() {
-                vec![new_zero_slice()]
-            } else {
-                v
-            }
-        }
-    }
-}
-
-fn new_zero_slice<'a, const T: usize>() -> vec<'a, T> { [Scalar::ZERO; T] }
-
-impl Polynomium<Scalar> {
-    fn len(&self) -> usize { self.coeffs.len() }
-
-    /// In order to have all inputs give a valid group element we make it zero if
-    /// the given vector is empty.
-    fn new_from_scalar(v: &Vec<Scalar>) -> Self {
-        Self {
-            coeffs: if v.is_empty() {
-                vec![Scalar::from(0u128)]
-            } else {
-                v.to_vec()
-            }
-        }
-    }
-
-    pub fn trim(&self) -> Self {
-        Polynomium {
-            coeffs: {
-                let res = trim_rec(&self.coeffs);
-                if res.is_empty() { vec![Scalar::ZERO] } else { res }
-            }
-        }
-    }
-}
-
-/// Recursive trim trailing zeroes.
-fn trim_rec(v: &Vec<Scalar>) -> Vec<Scalar> {
-    let filtered_rev = v.iter().rev();
-    let mut res = vec![];
-    let mut is_trailing = true;
-    for e in filtered_rev {
-        if !(is_trailing && *e == Scalar::ZERO) {
-            res.push(e.clone());
-        }
-    }
-    res
-}
 
 fn main() {
     let _1 = Scalar { v: 1 };
@@ -75,15 +18,15 @@ fn main() {
     let _4 = Scalar { v: 4 };
     let _5 = Scalar { v: 5 };
     let _6 = Scalar { v: 6 };
-    let l: &[Scalar; 3] = &[_1, _2, _3];
-    let r: &[Scalar; 3] = &[_1, _2, _3];
+    let l: &vec<'static, 3> = &[_1, _2, _3];
+    let r: &vec<'static, 3> = &[_1, _2, _3];
     let _ = add_vec(&l, &r);
 }
 
-#[derive(Copy, Clone, PartialEq)]
+#[derive(Copy, Clone, PartialEq, Debug)]
 #[attributes]
 struct Scalar {
-    #[refine(v < p)]
+    #[refine(v < PRIME)]
     v: u128,
 }
 
@@ -91,21 +34,21 @@ impl Scalar {
     const ZERO: Scalar = Scalar { v: 0 };
 
     fn from(n: u128) -> Self {
-        Self { v: (n % p) }
+        Self { v: (n % PRIME) }
     }
 }
 
 impl std::ops::Add for Scalar {
     type Output = Self;
     fn add(self, rhs: Self) -> Self::Output {
-        Self { v: (self.v + rhs.v) % p }
+        Self { v: (self.v + rhs.v) % PRIME }
     }
 }
 
 impl std::ops::Sub for Scalar {
     type Output = Self;
     fn sub(self, rhs: Self) -> Self::Output {
-        Self { v: ((self.v + p) - rhs.v) % p }
+        Self { v: ((self.v + PRIME) - rhs.v) % PRIME }
     }
 }
 
@@ -384,8 +327,8 @@ mod tests {
         println!("cl len: {}", cl.len());
         println!("cr len: {}", cr.len());
 
-        let l = Polynomium::new_from_vec(cl, Scalar::from(i));
-        let r = Polynomium::new_from_vec(cr, Scalar::from(i));
+        let l = Polynomium::new_from_vec(cl);
+        let r = Polynomium::new_from_vec(cr);
 
         println!("l: {}", l);
         println!("r: {}", r);
@@ -413,8 +356,8 @@ mod tests {
         let cl: Vec<Vec<Scalar>> = (0..=m).map(|_| random_vec(i as usize)).collect();
         let cr: Vec<Vec<Scalar>> = (0..=n).map(|_| random_vec(i as usize)).collect();
 
-        let l = Polynomium::new_from_vec(cl, Scalar::from(i));
-        let r = Polynomium::new_from_vec(cr, Scalar::from(i));
+        let l = Polynomium::new_from_vec(cl);
+        let r = Polynomium::new_from_vec(cr);
 
         println!("karatsuba calculation running");
         let karatsuba_result = karatsuba_vector_polynomial_mul(&l, &r);
@@ -423,6 +366,7 @@ mod tests {
 
         assert_eq!(simple_result, karatsuba_result.trim());
     }
+
     #[quickcheck]
     /// Tests the trim method for scalar polynomiums.
     fn test_polynomium_trims(n: u128, i: u128) {
@@ -431,7 +375,7 @@ mod tests {
 
         let c: Vec<Vec<Scalar>> = (0..n+1).map(|_| random_vec(i as usize)).collect();
 
-        let p = Polynomium::new_from_vec(c, Scalar::from(i));
+        let p = Polynomium::new_from_vec(c);
         let trimmed = p.clone().trim();
 
         let c: Vec<Scalar> = random_vec((n+1) as usize);
@@ -439,6 +383,7 @@ mod tests {
             assert_eq!(trimmed.clone().eval(i), p.clone().eval(i));
         }
     }
+
     #[quickcheck]
     /// Test for associativy of polynomials under addition
     fn test_polynomial_associativity(i: u128, o: u128, p: u128) {
@@ -456,6 +401,7 @@ mod tests {
 
         assert_eq!((pm.clone() + pn.clone()) + po.clone(), pm + (pn + po))
     }
+
     #[quickcheck]
     /// Test for associativy of vector polynomials under addition
     fn test_polynomial_vec_associativity(m:u128, n:u128, o:u128, i: u128) {
@@ -468,9 +414,9 @@ mod tests {
         let co: Vec<Vec<Scalar>> = (0..=o).map(|_| random_vec(i as usize)).collect();
         let cn: Vec<Vec<Scalar>> = (0..=n).map(|_| random_vec(i as usize)).collect();
 
-        let pm = Polynomium::new_from_vec(cm, Scalar::from(i)).trim();
-        let pn = Polynomium::new_from_vec(cn, Scalar::from(i)).trim();
-        let po = Polynomium::new_from_vec(co, Scalar::from(i)).trim();
+        let pm = Polynomium::new_from_vec(cm).trim();
+        let pn = Polynomium::new_from_vec(cn).trim();
+        let po = Polynomium::new_from_vec(co).trim();
 
         assert_eq!((pm.clone() + pn.clone()) + po.clone(), pm + (pn + po))
     }
@@ -498,11 +444,12 @@ mod tests {
         let cm: Vec<Vec<Scalar>> = (0..=m).map(|_| random_vec(i as usize)).collect();
         let co: Vec<Vec<Scalar>> = (0..=o).map(|_| random_vec(i as usize)).collect();
 
-        let pm = Polynomium::new_from_vec(cm, Scalar::from(i)).trim();
-        let po = Polynomium::new_from_vec(co, Scalar::from(i)).trim();
+        let pm = Polynomium::new_from_vec(cm).trim();
+        let po = Polynomium::new_from_vec(co).trim();
 
         assert_eq!(pm.clone() + po.clone(), po + pm)
     }
+
     #[quickcheck]
     /// Test for identity element, for polynomials this is simply the polynomial: f(x)=0
     fn test_polynomial_identity_element(m: u128, p: u128, i: u128) {
@@ -513,14 +460,15 @@ mod tests {
         let cm: Vec<Scalar> = random_vec(p as usize);
         let cp: Vec<Vec<Scalar>> = (0..=p).map(|_| random_vec(i as usize)).collect();
 
-        let pm = Polynomium::new_from_scalar(cm);
-        let pp = Polynomium::new_from_vec(cp, Scalar::from(i));
-        let id = Polynomium::new_from_scalar(vec![Scalar::ZERO]);
-        let idv = Polynomium::new_from_vec(vec![vec![Scalar::ZERO]; i as usize], Scalar::from(i));
+        let pm = Polynomium::new_from_scalar(&cm);
+        let pp = Polynomium::new_from_vec(cp);
+        let id = Polynomium::new_from_scalar(&vec![Scalar::ZERO]);
+        let idv = Polynomium::new_from_vec(vec![new_zero_slice(); i as usize]);
 
         assert_eq!(pm.clone() + id, pm);
         assert_eq!((pp.clone() + idv).trim(), pp.trim());
     }
+
     #[quickcheck]
     /// Test
     fn test_polynomial_inverse_elements(m:u128) {
@@ -530,9 +478,9 @@ mod tests {
         for i in 0..cm.len() {
             im[i] -= cm[i];
         }
-        let pm = Polynomium::new_from_scalar(cm);
-        let pi = Polynomium::new_from_scalar(im);
-        assert_eq!((pm.clone() + pi.clone()).trim(), Polynomium::new_from_scalar(vec![Scalar::ZERO]));
+        let pm = Polynomium::new_from_scalar(&cm);
+        let pi = Polynomium::new_from_scalar(&im);
+        assert_eq!((pm.clone() + pi.clone()).trim(), Polynomium::new_from_scalar(&vec![Scalar::ZERO]));
     }
 
     #[quickcheck]
@@ -552,9 +500,9 @@ mod tests {
         let pm = Polynomium::new_from_scalar(cm);
         let pp = Polynomium::new_from_scalar(cp);
         let pn = Polynomium::new_from_scalar(cn);
-        let pvm = Polynomium::new_from_vec(cvm, Scalar::from(i));
-        let pvp = Polynomium::new_from_vec(cvp, Scalar::from(i));
-        let pvn = Polynomium::new_from_vec(cvn, Scalar::from(i));
+        let pvm = Polynomium::new_from_vec(cvm);
+        let pvp = Polynomium::new_from_vec(cvp);
+        let pvn = Polynomium::new_from_vec(cvn);
 
         assert_eq!(((pm.clone() * pp.clone()) * pn.clone()).trim(), (pm.clone() * (pp.clone() * pn.clone())).trim());
         //assert_eq!(((pvm.clone() * pvp.clone()) * pvn.clone()).trim(), pvm.clone() * (pvp.clone() * pvn.clone()));
@@ -571,8 +519,8 @@ mod tests {
 
         let pm = Polynomium::new_from_scalar(cm);
         let pp = Polynomium::new_from_vec(cp);
-        let id = Polynomium::new_from_scalar(vec![Scalar::from(1 as u32)]);
-        let idv = Polynomium::new_from_vec(vec![vec![Scalar::ZERO]; i as usize]);
+        let id = Polynomium::new_from_scalar(&vec![Scalar::from(1u128)]);
+        let idv = Polynomium::new_from_vec(vec![new_zero_slice(); i as usize]);
 
         assert_eq!((pm.clone() * id).trim(), pm.trim());
         //assert_eq!((pp.clone() * idv).trim(), pp.trim());

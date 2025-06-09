@@ -260,7 +260,6 @@ fn jonamul(lhs: &Polynomium<Scalar>, rhs: &Polynomium<Scalar>) -> Polynomium<Sca
         let largest_slice = &largest.coeffs[curr_win].to_vec();
         let smallest_slice = &smallest.coeffs[..].to_vec();
         let res = cross_product(smallest_slice, largest_slice);
-        println!("mid: {:?}", res);
         coeffs.push(res);
     }
 
@@ -314,7 +313,6 @@ fn jonamul_vec<'a, const T: usize>(lhs: &Polynomium<vec<'a, T>>, rhs: &Polynomiu
         let largest_slice = &largest.coeffs[curr_win].to_vec();
         let smallest_slice = &smallest.coeffs[..].to_vec();
         let res = cross_product_vec(smallest_slice, largest_slice);
-        println!("mid: {:?}", res);
         coeffs.push(res);
     }
 
@@ -377,19 +375,23 @@ fn sub_scalar_polynomium(lhs: &Polynomium<Scalar>, rhs: &Polynomium<Scalar>) -> 
     }
 }
 
-/// For extending a polynomial of scalars.
+/// For extending a polynomial of scalars. If the RHS is longer, extends the lhs with the diff
 fn extend_from(lhs: &Vec<Scalar>, rhs: &Vec<Scalar>) -> Vec<Scalar> {
     let mut res = lhs.clone();
-    for i in 0..rhs.len() {
+    if lhs.len() > rhs.len() { return lhs.to_vec(); }
+
+    for i in lhs.len()..rhs.len() {
         res.push(rhs[i]);
     }
     res
 }
 
-/// For extending a polynomial of scalars with the negation.
+/// For extending a polynomial of scalars with the negation. If the RHS is longer, extends the lhs with the diff
 fn extend_from_neg(lhs: &Vec<Scalar>, rhs: &Vec<Scalar>) -> Vec<Scalar> {
     let mut res = lhs.clone();
-    for i in 0..rhs.len() {
+    if lhs.len() > rhs.len() { return lhs.to_vec(); }
+
+    for i in lhs.len()..rhs.len() {
         res.push(Scalar::ZERO - rhs[i]);
     }
     res
@@ -414,7 +416,9 @@ fn add_vector_polynomium<'a, const T: usize>(lhs: &Polynomium<vec<'a, T>>, rhs: 
 /// The same but with a vector of vectors
 fn extend_from_vec<'a, const T: usize>(lhs: &Vec<vec<'a, T>>, rhs: &Vec<vec<'a, T>>) -> Vec<vec<'a, T>> {
     let mut res = lhs.clone();
-    for i in 0..rhs.len() {
+    if lhs.len() < rhs.len() { return lhs.to_vec(); }
+
+    for i in lhs.len()..rhs.len() {
         res.push(rhs[i].clone());
     }
     res

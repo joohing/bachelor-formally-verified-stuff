@@ -1249,21 +1249,6 @@ let jonamul (lhs rhs: t_Polynomium t_Scalar) : t_Polynomium t_Scalar =
                 t_Slice t_Scalar)
           in
           let res:t_Scalar = cross_product smallest_slice largest_slice in
-          let _:Prims.unit =
-            Std.Io.Stdio.e_print (Core.Fmt.impl_4__new_v1 (mk_usize 2)
-                  (mk_usize 1)
-                  (let list = ["mid: "; "\n"] in
-                    FStar.Pervasives.assert_norm (Prims.eq2 (List.Tot.length list) 2);
-                    Rust_primitives.Hax.array_of_list 2 list)
-                  (let list =
-                      [Core.Fmt.Rt.impl_1__new_debug #t_Scalar res <: Core.Fmt.Rt.t_Argument]
-                    in
-                    FStar.Pervasives.assert_norm (Prims.eq2 (List.Tot.length list) 1);
-                    Rust_primitives.Hax.array_of_list 1 list)
-                <:
-                Core.Fmt.t_Arguments)
-          in
-          let _:Prims.unit = () in
           let coeffs:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global =
             Alloc.Vec.impl_1__push #t_Scalar #Alloc.Alloc.t_Global coeffs res
           in
@@ -1507,21 +1492,6 @@ let jonamul_vec (v_T: usize) (lhs rhs: t_Polynomium (t_Array t_Scalar v_T)) : t_
                 t_Slice (t_Array t_Scalar v_T))
           in
           let res:t_Scalar = cross_product_vec v_T smallest_slice largest_slice in
-          let _:Prims.unit =
-            Std.Io.Stdio.e_print (Core.Fmt.impl_4__new_v1 (mk_usize 2)
-                  (mk_usize 1)
-                  (let list = ["mid: "; "\n"] in
-                    FStar.Pervasives.assert_norm (Prims.eq2 (List.Tot.length list) 2);
-                    Rust_primitives.Hax.array_of_list 2 list)
-                  (let list =
-                      [Core.Fmt.Rt.impl_1__new_debug #t_Scalar res <: Core.Fmt.Rt.t_Argument]
-                    in
-                    FStar.Pervasives.assert_norm (Prims.eq2 (List.Tot.length list) 1);
-                    Rust_primitives.Hax.array_of_list 1 list)
-                <:
-                Core.Fmt.t_Arguments)
-          in
-          let _:Prims.unit = () in
           let coeffs:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global =
             Alloc.Vec.impl_1__push #t_Scalar #Alloc.Alloc.t_Global coeffs res
           in
@@ -1590,7 +1560,7 @@ let impl_3__from__polynomium (v_T: usize)
       jonamul_vec v_T self rhs
   }
 
-/// For extending a polynomial of scalars.
+/// For extending a polynomial of scalars. If the RHS is longer, extends the lhs with the diff
 let extend_from (lhs rhs: Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global)
     : Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global =
   let res:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global =
@@ -1598,8 +1568,20 @@ let extend_from (lhs rhs: Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global)
       #FStar.Tactics.Typeclasses.solve
       lhs
   in
-  let res:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global =
-    Rust_primitives.Hax.Folds.fold_range (mk_usize 0)
+  if
+    (Alloc.Vec.impl_1__len #t_Scalar #Alloc.Alloc.t_Global lhs <: usize) >.
+    (Alloc.Vec.impl_1__len #t_Scalar #Alloc.Alloc.t_Global rhs <: usize)
+  then
+    Alloc.Slice.impl__to_vec #t_Scalar
+      (Core.Ops.Deref.f_deref #(Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global)
+          #FStar.Tactics.Typeclasses.solve
+          lhs
+        <:
+        t_Slice t_Scalar)
+  else
+    Rust_primitives.Hax.Folds.fold_range (Alloc.Vec.impl_1__len #t_Scalar #Alloc.Alloc.t_Global lhs
+        <:
+        usize)
       (Alloc.Vec.impl_1__len #t_Scalar #Alloc.Alloc.t_Global rhs <: usize)
       (fun res temp_1_ ->
           let res:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global = res in
@@ -1612,8 +1594,6 @@ let extend_from (lhs rhs: Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global)
           Alloc.Vec.impl_1__push #t_Scalar #Alloc.Alloc.t_Global res (rhs.[ i ] <: t_Scalar)
           <:
           Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global)
-  in
-  res
 
 #push-options "--z3rlimit 100"
 
@@ -1726,7 +1706,7 @@ let impl_1__from__polynomium: Core.Ops.Arith.t_Add (t_Polynomium t_Scalar) (t_Po
     fun (self: t_Polynomium t_Scalar) (rhs: t_Polynomium t_Scalar) -> add_scalar_polynomium self rhs
   }
 
-/// For extending a polynomial of scalars with the negation.
+/// For extending a polynomial of scalars with the negation. If the RHS is longer, extends the lhs with the diff
 let extend_from_neg (lhs rhs: Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global)
     : Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global =
   let res:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global =
@@ -1734,8 +1714,20 @@ let extend_from_neg (lhs rhs: Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global)
       #FStar.Tactics.Typeclasses.solve
       lhs
   in
-  let res:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global =
-    Rust_primitives.Hax.Folds.fold_range (mk_usize 0)
+  if
+    (Alloc.Vec.impl_1__len #t_Scalar #Alloc.Alloc.t_Global lhs <: usize) >.
+    (Alloc.Vec.impl_1__len #t_Scalar #Alloc.Alloc.t_Global rhs <: usize)
+  then
+    Alloc.Slice.impl__to_vec #t_Scalar
+      (Core.Ops.Deref.f_deref #(Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global)
+          #FStar.Tactics.Typeclasses.solve
+          lhs
+        <:
+        t_Slice t_Scalar)
+  else
+    Rust_primitives.Hax.Folds.fold_range (Alloc.Vec.impl_1__len #t_Scalar #Alloc.Alloc.t_Global lhs
+        <:
+        usize)
       (Alloc.Vec.impl_1__len #t_Scalar #Alloc.Alloc.t_Global rhs <: usize)
       (fun res temp_1_ ->
           let res:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global = res in
@@ -1757,8 +1749,6 @@ let extend_from_neg (lhs rhs: Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global)
               t_Scalar)
           <:
           Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global)
-  in
-  res
 
 #push-options "--z3rlimit 100"
 
@@ -1881,8 +1871,22 @@ let extend_from_vec
       #FStar.Tactics.Typeclasses.solve
       lhs
   in
-  let res:Alloc.Vec.t_Vec (t_Array t_Scalar v_T) Alloc.Alloc.t_Global =
-    Rust_primitives.Hax.Folds.fold_range (mk_usize 0)
+  if
+    (Alloc.Vec.impl_1__len #(t_Array t_Scalar v_T) #Alloc.Alloc.t_Global lhs <: usize) <.
+    (Alloc.Vec.impl_1__len #(t_Array t_Scalar v_T) #Alloc.Alloc.t_Global rhs <: usize)
+  then
+    Alloc.Slice.impl__to_vec #(t_Array t_Scalar v_T)
+      (Core.Ops.Deref.f_deref #(Alloc.Vec.t_Vec (t_Array t_Scalar v_T) Alloc.Alloc.t_Global)
+          #FStar.Tactics.Typeclasses.solve
+          lhs
+        <:
+        t_Slice (t_Array t_Scalar v_T))
+  else
+    Rust_primitives.Hax.Folds.fold_range (Alloc.Vec.impl_1__len #(t_Array t_Scalar v_T)
+          #Alloc.Alloc.t_Global
+          lhs
+        <:
+        usize)
       (Alloc.Vec.impl_1__len #(t_Array t_Scalar v_T) #Alloc.Alloc.t_Global rhs <: usize)
       (fun res temp_1_ ->
           let res:Alloc.Vec.t_Vec (t_Array t_Scalar v_T) Alloc.Alloc.t_Global = res in
@@ -1902,8 +1906,6 @@ let extend_from_vec
               t_Array t_Scalar v_T)
           <:
           Alloc.Vec.t_Vec (t_Array t_Scalar v_T) Alloc.Alloc.t_Global)
-  in
-  res
 
 #push-options "--z3rlimit 100"
 

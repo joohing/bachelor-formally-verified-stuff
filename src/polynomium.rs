@@ -21,6 +21,8 @@ pub trait Eval<T> {
 
 impl std::ops::Mul for Polynomium<Scalar> {
     type Output = Self;
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[ensures(|res| res.coeffs.len() >= 0 && res.coeffs.len() <= usize::MAX)]
     fn mul(self, rhs: Self) -> Self::Output {
         jonamul(&self, &rhs)
     }
@@ -28,6 +30,8 @@ impl std::ops::Mul for Polynomium<Scalar> {
 
 impl std::ops::Add for Polynomium<Scalar> {
     type Output = Self;
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[ensures(|res| res.coeffs.len() >= 0 && res.coeffs.len() <= usize::MAX)]
     fn add(self, rhs: Self) -> Self::Output {
         add_scalar_polynomium(&self, &rhs)
     }
@@ -35,6 +39,8 @@ impl std::ops::Add for Polynomium<Scalar> {
 
 impl std::ops::Sub for Polynomium<Scalar> {
     type Output = Self;
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[ensures(|res| res.coeffs.len() >= 0 && res.coeffs.len() <= usize::MAX)]
     fn sub(self, rhs: Self) -> Self::Output {
         sub_scalar_polynomium(&self, &rhs)
     }
@@ -42,6 +48,8 @@ impl std::ops::Sub for Polynomium<Scalar> {
 
 impl<'a, const T: usize> std::ops::Mul for Polynomium<vec<'a, T>> {
     type Output = Polynomium<Scalar>;
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[ensures(|res| res.coeffs.len() >= 0 && res.coeffs.len() <= usize::MAX)]
     fn mul(self, rhs: Self) -> Self::Output {
         jonamul_vec(&self, &rhs)
     }
@@ -49,18 +57,26 @@ impl<'a, const T: usize> std::ops::Mul for Polynomium<vec<'a, T>> {
 
 impl<'a, const T: usize> std::ops::Add for Polynomium<vec<'a, T>> {
     type Output = Self;
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[ensures(|res| res.coeffs.len() >= 0 && res.coeffs.len() <= usize::MAX)]
     fn add(self, rhs: Self) -> Self::Output {
         add_vector_polynomium(&self, &rhs)
     }
 }
 
+#[hax_lib::fstar::options("--z3rlimit 100")]
+#[ensures(|res| res.len() == T)]
 pub fn new_zero_slice<'a, const T: usize>() -> vec<'a, T> { [Scalar::ZERO; T] }
 
 impl Polynomium<Scalar> {
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[ensures(|res| res >= 0 && res <= usize::MAX)]
     pub fn len(&self) -> usize { self.coeffs.len() }
 
     /// In order to have all inputs give a valid group element we make it zero if
     /// the given vector is empty.
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[ensures(|res| res.coeffs.len() > 0)]
     pub fn new_from_scalar(v: &Vec<Scalar>) -> Self {
         Self {
             coeffs: if v.is_empty() {
@@ -73,6 +89,8 @@ impl Polynomium<Scalar> {
 }
 
 impl Trim<Polynomium<Scalar>> for Polynomium<Scalar> {
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[ensures(|res| res.coeffs.len() > 0)]
     fn trim(&self) -> Self {
         Polynomium {
             coeffs: {
@@ -84,16 +102,23 @@ impl Trim<Polynomium<Scalar>> for Polynomium<Scalar> {
 }
 
 impl Eval<Scalar> for Polynomium<Scalar> {
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[requires(x.v < PRIME)]
+    #[ensures(|res| res.v < PRIME)]
     fn eval(&self, x: Scalar) -> Scalar {
         evaluate_polynomial(self.coeffs.clone(), x)
     }
 }
 
 impl<'a, const T: usize> Polynomium<vec<'_, T>> {
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[ensures(|res| res >= 0 && res <= usize::MAX)]
     fn len(&self) -> usize { self.coeffs.len() }
 
     /// In order to have all inputs give a valid group element we make it zero if
     /// the given vector is empty.
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[ensures(|res| res.coeffs.len() > 0)]
     pub fn new_from_vec(v: Vec<vec<'a, T>>) -> Self {
         Self {
             coeffs: if v.is_empty() {
@@ -107,6 +132,8 @@ impl<'a, const T: usize> Polynomium<vec<'_, T>> {
 
 impl<'a, const T: usize> Trim<Polynomium<vec<'a, T>>> for Polynomium<vec<'a, T>> {
     /// Remove all trailing zero vectors from the polynomium's coefficients
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[ensures(|res| res.coeffs.len() > 0)]
     fn trim(&self) -> Self {
         Polynomium {
             coeffs: {
@@ -118,11 +145,17 @@ impl<'a, const T: usize> Trim<Polynomium<vec<'a, T>>> for Polynomium<vec<'a, T>>
 }
 
 impl<'a, const T: usize> Eval<vec<'a, T>> for Polynomium<vec<'a, T>> {
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[requires(x.v < PRIME)]
+    #[ensures(|res| res.len() == T)]
     fn eval(&self, x: Scalar) -> vec<'a, T> {
         evaluate_vector_polynomial(self.coeffs.clone(), x)
     }
 }
 
+#[hax_lib::fstar::options("--z3rlimit 100")]
+#[requires(v.len() >= 0 && v.len() <= usize::MAX)]
+#[ensures(|res| res.len() >= 0 && res.len() <= v.len())]
 fn trim(v: &Vec<Scalar>) -> Vec<Scalar> {
     let filtered_rev = v.iter().rev();
     let mut res = vec![];
@@ -136,6 +169,9 @@ fn trim(v: &Vec<Scalar>) -> Vec<Scalar> {
     res.iter().rev().map(|e| e.clone()).collect()
 }
 
+#[hax_lib::fstar::options("--z3rlimit 100")]
+#[requires(v.len() >= 0 && v.len() <= usize::MAX)]
+#[ensures(|res| res.len() >= 0 && res.len() <= v.len())]
 fn trim_vec<'a, const T: usize>(v: &Vec<vec<'a, T>>) -> Vec<vec<'a, T>> {
     let filtered_rev = v.iter().rev();
     let mut res = vec![];
@@ -150,6 +186,9 @@ fn trim_vec<'a, const T: usize>(v: &Vec<vec<'a, T>>) -> Vec<vec<'a, T>> {
 }
 
 /// Evaluates the polynomial given by a[0] + a[1]u + a[2]u^2 ...
+#[hax_lib::fstar::options("--z3rlimit 100")]
+#[requires(a.len() >= 0 && a.len() <= usize::MAX && u.v < PRIME)]
+#[ensures(|res| res.v < PRIME)]
 pub fn evaluate_polynomial(a: Vec<Scalar>, u: Scalar) -> Scalar {
     let mut result = Scalar::ZERO;
     for &coef in a.iter().rev() {
@@ -158,6 +197,9 @@ pub fn evaluate_polynomial(a: Vec<Scalar>, u: Scalar) -> Scalar {
     result
 }
 
+#[hax_lib::fstar::options("--z3rlimit 100")]
+#[requires(a.len() >= 0 && a.len() <= usize::MAX && u.v < PRIME)]
+#[ensures(|res| res.len() == T)]
 pub fn evaluate_vector_polynomial<'a, const T: usize>(a: Vec<vec<'a, T>>, u: Scalar) -> vec<'a, T> {
     if a.is_empty() { return new_zero_slice(); }
     let mut result = new_zero_slice();
@@ -232,6 +274,9 @@ pub fn evaluate_vector_polynomial<'a, const T: usize>(a: Vec<vec<'a, T>>, u: Sca
 // }
 
 /// The Johnnyboi algorithm for multiplying polynomials. FORMALLY VERIFIED
+#[hax_lib::fstar::options("--z3rlimit 100")]
+#[requires(lhs.len() >= 0 && lhs.len() <= usize::MAX && rhs.len() >= 0 && rhs.len() <= usize::MAX)]
+#[ensures(|res| res.coeffs.len() >= 0 && res.coeffs.len() <= usize::MAX)]
 fn jonamul(lhs: &Polynomium<Scalar>, rhs: &Polynomium<Scalar>) -> Polynomium<Scalar> {
     let min_len = min(lhs.len(), rhs.len());
     let max_len = max(lhs.len(), rhs.len());
@@ -280,11 +325,17 @@ fn jonamul(lhs: &Polynomium<Scalar>, rhs: &Polynomium<Scalar>) -> Polynomium<Sca
 }
 
 /// Returns [1, 2, 3] x [1, 2, 3] => 1 * 3 + 2 * 2 + 3 * 1
+#[hax_lib::fstar::options("--z3rlimit 100")]
+#[requires(l.len() >= 0 && l.len() <= usize::MAX && r.len() >= 0 && r.len() <= usize::MAX)]
+#[ensures(|res| res.v < PRIME)]
 fn cross_product(l: &Vec<Scalar>, r: &Vec<Scalar>) -> Scalar {
     l.iter().rev().zip(r.iter()).fold(Scalar::ZERO, |acc, (&a, &b)| acc + a * b)
 }
 
 /// The Johnnyboi algorithm for multiplying polynomials. FORMALLY VERIFIED
+#[hax_lib::fstar::options("--z3rlimit 100")]
+#[requires(lhs.len() >= 0 && lhs.len() <= usize::MAX && rhs.len() >= 0 && rhs.len() <= usize::MAX)]
+#[ensures(|res| res.coeffs.len() >= 0 && res.coeffs.len() <= usize::MAX)]
 fn jonamul_vec<'a, const T: usize>(lhs: &Polynomium<vec<'a, T>>, rhs: &Polynomium<vec<'a, T>>) -> Polynomium<Scalar> {
     let min_len = min(lhs.len(), rhs.len());
     let max_len = max(lhs.len(), rhs.len());
@@ -333,6 +384,9 @@ fn jonamul_vec<'a, const T: usize>(lhs: &Polynomium<vec<'a, T>>, rhs: &Polynomiu
 }
 
 /// Returns [1, 2, 3] x [1, 2, 3] => 1 * 3 + 2 * 2 + 3 * 1
+#[hax_lib::fstar::options("--z3rlimit 100")]
+#[requires(l.len() >= 0 && l.len() <= usize::MAX && r.len() >= 0 && r.len() <= usize::MAX)]
+#[ensures(|res| res.v < PRIME)]
 fn cross_product_vec<'a, const T: usize>(l: &Vec<vec<'a, T>>, r: &Vec<vec<'a, T>>) -> Scalar {
     l.iter().rev().zip(r.iter()).fold(Scalar::ZERO, |acc, (&a, &b)| acc + inner_prod_scalars(&a, &b))
 }
@@ -376,6 +430,9 @@ fn sub_scalar_polynomium(lhs: &Polynomium<Scalar>, rhs: &Polynomium<Scalar>) -> 
 }
 
 /// For extending a polynomial of scalars. If the RHS is longer, extends the lhs with the diff
+#[hax_lib::fstar::options("--z3rlimit 100")]
+#[requires(lhs.len() >= 0 && lhs.len() <= usize::MAX && rhs.len() >= 0 && rhs.len() <= usize::MAX)]
+#[ensures(|res| res.len() >= lhs.len() && res.len() >= 0 && res.len() <= usize::MAX)]
 fn extend_from(lhs: &Vec<Scalar>, rhs: &Vec<Scalar>) -> Vec<Scalar> {
     let mut res = lhs.clone();
     if lhs.len() > rhs.len() { return lhs.to_vec(); }
@@ -387,6 +444,9 @@ fn extend_from(lhs: &Vec<Scalar>, rhs: &Vec<Scalar>) -> Vec<Scalar> {
 }
 
 /// For extending a polynomial of scalars with the negation. If the RHS is longer, extends the lhs with the diff
+#[hax_lib::fstar::options("--z3rlimit 100")]
+#[requires(lhs.len() >= 0 && lhs.len() <= usize::MAX && rhs.len() >= 0 && rhs.len() <= usize::MAX)]
+#[ensures(|res| res.len() >= lhs.len() && res.len() >= 0 && res.len() <= usize::MAX)]
 fn extend_from_neg(lhs: &Vec<Scalar>, rhs: &Vec<Scalar>) -> Vec<Scalar> {
     let mut res = lhs.clone();
     if lhs.len() > rhs.len() { return lhs.to_vec(); }
@@ -414,6 +474,9 @@ fn add_vector_polynomium<'a, const T: usize>(lhs: &Polynomium<vec<'a, T>>, rhs: 
 }
 
 /// The same but with a vector of vectors
+#[hax_lib::fstar::options("--z3rlimit 100")]
+#[requires(lhs.len() >= 0 && lhs.len() <= usize::MAX && rhs.len() >= 0 && rhs.len() <= usize::MAX)]
+#[ensures(|res| res.len() >= lhs.len() && res.len() >= 0 && res.len() <= usize::MAX)]
 fn extend_from_vec<'a, const T: usize>(lhs: &Vec<vec<'a, T>>, rhs: &Vec<vec<'a, T>>) -> Vec<vec<'a, T>> {
     let mut res = lhs.clone();
     if lhs.len() < rhs.len() { return lhs.to_vec(); }

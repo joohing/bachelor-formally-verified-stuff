@@ -23,6 +23,8 @@ pub trait Matrix {
 }
 
 impl<'a, const T: usize> AddSub<'a, T> for vec<'a, T> {
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[ensures(|res| res.len() == T)]
     fn add_vec(&self, rhs: &vec<'a, T>) -> vec<'a, T> {
         let mut res = new_zero_slice();
         for i in 0..T {
@@ -31,6 +33,8 @@ impl<'a, const T: usize> AddSub<'a, T> for vec<'a, T> {
         res
     }
 
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[ensures(|res| res.len() == T)]
     fn sub_vec(&self, rhs: &vec<'a, T>) -> vec<'a, T> {
         let mut res = new_zero_slice();
         for i in 0..T {
@@ -41,6 +45,9 @@ impl<'a, const T: usize> AddSub<'a, T> for vec<'a, T> {
 }
 
 impl<'a, const T: usize> Scalable for vec<'a, T> {
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[requires(rhs.v < PRIME)]
+    #[ensures(|res| res.len() == T)]
     fn mul_vec_scalar(&self, rhs: Scalar) -> vec<'a, T> {
         let mut res = new_zero_slice();
         for i in 0..T {
@@ -51,6 +58,8 @@ impl<'a, const T: usize> Scalable for vec<'a, T> {
 }
 
 impl<'a, const T: usize> EqLen<'a, T> for vec<'a, T> {
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[ensures(|res| res.len() == T)]
     fn hadamard(&self, rhs: &vec<T>) -> Self {
         hadamard_vec(&self, rhs)
     }
@@ -58,6 +67,9 @@ impl<'a, const T: usize> EqLen<'a, T> for vec<'a, T> {
 
 /// Computes the inner product between two vectors
 /// of scalars, e.g. [1, 2, 3] x [4, 5, 6] = 32.
+#[hax_lib::fstar::options("--z3rlimit 100")]
+#[requires(A.len() == B.len())]
+#[ensures(|res| res.v < PRIME)]
 pub fn inner_prod_scalars<'a, const T: usize>(A: &vec<'a, T>, B: &vec<'a, T>) -> Scalar {
 	let mut acc = Scalar::ZERO;
     for (a, b) in A.iter().zip(B.iter()) {
@@ -67,6 +79,9 @@ pub fn inner_prod_scalars<'a, const T: usize>(A: &vec<'a, T>, B: &vec<'a, T>) ->
 }
 
 /// Hadamard product of two vectors of scalars
+#[hax_lib::fstar::options("--z3rlimit 100")]
+#[requires(a.len() == b.len())]
+#[ensures(|res| res.len() == T)]
 fn hadamard_vec<'a, const T: usize>(a: &vec<'a, T>, b: &vec<'a, T>) -> vec<'a, T> {
     let mut res = new_zero_slice();
     for i in 0..T {

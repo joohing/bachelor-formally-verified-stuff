@@ -40,10 +40,14 @@ impl Scalar {
     const ZERO: Scalar = Scalar { v: 0 };
     const ONE: Scalar = Scalar { v: 1 };
 
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[ensures(|res| res.v < PRIME)]
     fn from(n: u128) -> Self {
         Self { v: (n % PRIME) }
     }
 
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[ensures(|res| res.v < PRIME)]
     fn pow(&self, n: u128) -> Self {
         let mut res = Scalar::ONE;
         for _ in 0..n {
@@ -52,6 +56,8 @@ impl Scalar {
         res
     }
 
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[ensures(|res| res.v < PRIME)]
     fn invert(&self) -> Self {
         self.pow(PRIME - 2)
     }
@@ -59,6 +65,9 @@ impl Scalar {
 
 impl std::ops::Add for Scalar {
     type Output = Self;
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[requires(self.v < PRIME && rhs.v < PRIME)]
+    #[ensures(|res| res.v < PRIME)]
     fn add(self, rhs: Self) -> Self::Output {
         Self { v: (self.v + rhs.v) % PRIME }
     }
@@ -66,6 +75,9 @@ impl std::ops::Add for Scalar {
 
 impl std::ops::Sub for Scalar {
     type Output = Self;
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[requires(self.v < PRIME && rhs.v < PRIME)]
+    #[ensures(|res| res.v < PRIME)]
     fn sub(self, rhs: Self) -> Self::Output {
         Self { v: ((self.v + PRIME) - rhs.v) % PRIME }
     }
@@ -73,6 +85,9 @@ impl std::ops::Sub for Scalar {
 
 impl std::ops::Mul for Scalar {
     type Output = Self;
+    #[hax_lib::fstar::options("--z3rlimit 100")]
+    #[requires(self.v < PRIME && rhs.v < PRIME)]
+    #[ensures(|res| res.v < PRIME)]
     fn mul(self, rhs: Self) -> Self::Output {
         (0..rhs.v).fold(Scalar::ZERO, |acc, _| acc + self)
     }

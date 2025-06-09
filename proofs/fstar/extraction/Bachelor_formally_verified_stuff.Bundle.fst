@@ -1075,179 +1075,7 @@ let impl_10 (v_T: usize) : t_Eval (t_Polynomium (t_Array t_Scalar v_T)) (t_Array
         x
   }
 
-let simple_vector_polynomial_mul (v_T: usize) (l r: t_Polynomium (t_Array t_Scalar v_T))
-    : t_Polynomium t_Scalar =
-  if
-    Alloc.Vec.impl_1__is_empty #(t_Array t_Scalar v_T) #Alloc.Alloc.t_Global l.f_coeffs ||
-    Alloc.Vec.impl_1__is_empty #(t_Array t_Scalar v_T) #Alloc.Alloc.t_Global r.f_coeffs
-  then { f_coeffs = Alloc.Vec.impl__new #t_Scalar () } <: t_Polynomium t_Scalar
-  else
-    let min_len:usize =
-      if (impl_8__len v_T l <: usize) <. (impl_8__len v_T r <: usize)
-      then impl_8__len v_T l
-      else impl_8__len v_T r
-    in
-    let coeffs:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global = Alloc.Vec.impl__new #t_Scalar () in
-    let coeffs:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global =
-      Rust_primitives.Hax.Folds.fold_range min_len
-        (impl_8__len v_T l <: usize)
-        (fun coeffs temp_1_ ->
-            let coeffs:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global = coeffs in
-            let _:usize = temp_1_ in
-            true)
-        coeffs
-        (fun coeffs i ->
-            let coeffs:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global = coeffs in
-            let i:usize = i in
-            let sum:t_Scalar =
-              Core.Iter.Traits.Iterator.f_fold #(Core.Slice.Iter.t_Iter (t_Array t_Scalar v_T))
-                #FStar.Tactics.Typeclasses.solve
-                #t_Scalar
-                (Core.Slice.impl__iter #(t_Array t_Scalar v_T)
-                    (Core.Ops.Deref.f_deref #(Alloc.Vec.t_Vec (t_Array t_Scalar v_T)
-                            Alloc.Alloc.t_Global)
-                        #FStar.Tactics.Typeclasses.solve
-                        r.f_coeffs
-                      <:
-                      t_Slice (t_Array t_Scalar v_T))
-                  <:
-                  Core.Slice.Iter.t_Iter (t_Array t_Scalar v_T))
-                impl__ZERO
-                (fun acc e ->
-                    let acc:t_Scalar = acc in
-                    let e:t_Array t_Scalar v_T = e in
-                    Core.Ops.Arith.f_add #t_Scalar
-                      #t_Scalar
-                      #FStar.Tactics.Typeclasses.solve
-                      acc
-                      (inner_prod_scalars v_T e (l.f_coeffs.[ i ] <: t_Array t_Scalar v_T)
-                        <:
-                        t_Scalar)
-                    <:
-                    t_Scalar)
-            in
-            let coeffs:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global =
-              Alloc.Vec.impl_1__push #t_Scalar #Alloc.Alloc.t_Global coeffs sum
-            in
-            coeffs)
-    in
-    let coeffs:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global =
-      if min_len =. (impl_8__len v_T l <: usize)
-      then
-        Rust_primitives.Hax.Folds.fold_range min_len
-          (impl_8__len v_T r <: usize)
-          (fun coeffs temp_1_ ->
-              let coeffs:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global = coeffs in
-              let _:usize = temp_1_ in
-              true)
-          coeffs
-          (fun coeffs i ->
-              let coeffs:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global = coeffs in
-              let i:usize = i in
-              let sum:t_Scalar =
-                Core.Iter.Traits.Iterator.f_fold #(Core.Slice.Iter.t_Iter (t_Array t_Scalar v_T))
-                  #FStar.Tactics.Typeclasses.solve
-                  #t_Scalar
-                  (Core.Slice.impl__iter #(t_Array t_Scalar v_T)
-                      (Core.Ops.Deref.f_deref #(Alloc.Vec.t_Vec (t_Array t_Scalar v_T)
-                              Alloc.Alloc.t_Global)
-                          #FStar.Tactics.Typeclasses.solve
-                          l.f_coeffs
-                        <:
-                        t_Slice (t_Array t_Scalar v_T))
-                    <:
-                    Core.Slice.Iter.t_Iter (t_Array t_Scalar v_T))
-                  impl__ZERO
-                  (fun acc e ->
-                      let acc:t_Scalar = acc in
-                      let e:t_Array t_Scalar v_T = e in
-                      Core.Ops.Arith.f_add #t_Scalar
-                        #t_Scalar
-                        #FStar.Tactics.Typeclasses.solve
-                        acc
-                        (inner_prod_scalars v_T e (r.f_coeffs.[ i ] <: t_Array t_Scalar v_T)
-                          <:
-                          t_Scalar)
-                      <:
-                      t_Scalar)
-              in
-              let coeffs:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global =
-                Alloc.Vec.impl_1__push #t_Scalar #Alloc.Alloc.t_Global coeffs sum
-              in
-              coeffs)
-      else
-        if min_len =. (impl_8__len v_T r <: usize)
-        then
-          Rust_primitives.Hax.Folds.fold_range min_len
-            (impl_8__len v_T l <: usize)
-            (fun coeffs temp_1_ ->
-                let coeffs:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global = coeffs in
-                let _:usize = temp_1_ in
-                true)
-            coeffs
-            (fun coeffs i ->
-                let coeffs:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global = coeffs in
-                let i:usize = i in
-                let sum:t_Scalar =
-                  Core.Iter.Traits.Iterator.f_fold #(Core.Slice.Iter.t_Iter (t_Array t_Scalar v_T))
-                    #FStar.Tactics.Typeclasses.solve
-                    #t_Scalar
-                    (Core.Slice.impl__iter #(t_Array t_Scalar v_T)
-                        (Core.Ops.Deref.f_deref #(Alloc.Vec.t_Vec (t_Array t_Scalar v_T)
-                                Alloc.Alloc.t_Global)
-                            #FStar.Tactics.Typeclasses.solve
-                            r.f_coeffs
-                          <:
-                          t_Slice (t_Array t_Scalar v_T))
-                      <:
-                      Core.Slice.Iter.t_Iter (t_Array t_Scalar v_T))
-                    impl__ZERO
-                    (fun acc e ->
-                        let acc:t_Scalar = acc in
-                        let e:t_Array t_Scalar v_T = e in
-                        Core.Ops.Arith.f_add #t_Scalar
-                          #t_Scalar
-                          #FStar.Tactics.Typeclasses.solve
-                          acc
-                          (inner_prod_scalars v_T e (l.f_coeffs.[ i ] <: t_Array t_Scalar v_T)
-                            <:
-                            t_Scalar)
-                        <:
-                        t_Scalar)
-                in
-                let coeffs:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global =
-                  Alloc.Vec.impl_1__push #t_Scalar #Alloc.Alloc.t_Global coeffs sum
-                in
-                coeffs)
-        else coeffs
-    in
-    { f_coeffs = coeffs } <: t_Polynomium t_Scalar
-
-[@@ FStar.Tactics.Typeclasses.tcinstance]
-let impl_3__from__polynomium (v_T: usize)
-    : Core.Ops.Arith.t_Mul (t_Polynomium (t_Array t_Scalar v_T))
-      (t_Polynomium (t_Array t_Scalar v_T)) =
-  {
-    f_Output = t_Polynomium t_Scalar;
-    f_mul_pre
-    =
-    (fun (self: t_Polynomium (t_Array t_Scalar v_T)) (rhs: t_Polynomium (t_Array t_Scalar v_T)) ->
-        true);
-    f_mul_post
-    =
-    (fun
-        (self: t_Polynomium (t_Array t_Scalar v_T))
-        (rhs: t_Polynomium (t_Array t_Scalar v_T))
-        (out: t_Polynomium t_Scalar)
-        ->
-        true);
-    f_mul
-    =
-    fun (self: t_Polynomium (t_Array t_Scalar v_T)) (rhs: t_Polynomium (t_Array t_Scalar v_T)) ->
-      simple_vector_polynomial_mul v_T self rhs
-  }
-
-/// Returns [1, 2, 3] x [1, 2, 3] => [1 * 3, 2 * 2, 3 * 1]
+/// Returns [1, 2, 3] x [1, 2, 3] => 1 * 3 + 2 * 2 + 3 * 1
 let cross_product (l r: Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global) : t_Scalar =
   Core.Iter.Traits.Iterator.f_fold #(Core.Iter.Adapters.Zip.t_Zip
         (Core.Iter.Adapters.Rev.t_Rev (Core.Slice.Iter.t_Iter t_Scalar))
@@ -1294,7 +1122,7 @@ let cross_product (l r: Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global) : t_Scala
         <:
         t_Scalar)
 
-/// The Johnnyboi algorithm for multiplying polynomials
+/// The Johnnyboi algorithm for multiplying polynomials. FORMALLY VERIFIED
 let jonamul (lhs rhs: t_Polynomium t_Scalar) : t_Polynomium t_Scalar =
   let min_len:usize =
     Bachelor_formally_verified_stuff.Convert.min #usize
@@ -1494,6 +1322,272 @@ let impl__from__polynomium: Core.Ops.Arith.t_Mul (t_Polynomium t_Scalar) (t_Poly
     (fun (self: t_Polynomium t_Scalar) (rhs: t_Polynomium t_Scalar) (out: t_Polynomium t_Scalar) ->
         true);
     f_mul = fun (self: t_Polynomium t_Scalar) (rhs: t_Polynomium t_Scalar) -> jonamul self rhs
+  }
+
+/// Returns [1, 2, 3] x [1, 2, 3] => 1 * 3 + 2 * 2 + 3 * 1
+let cross_product_vec
+      (v_T: usize)
+      (l r: Alloc.Vec.t_Vec (t_Array t_Scalar v_T) Alloc.Alloc.t_Global)
+    : t_Scalar =
+  Core.Iter.Traits.Iterator.f_fold #(Core.Iter.Adapters.Zip.t_Zip
+        (Core.Iter.Adapters.Rev.t_Rev (Core.Slice.Iter.t_Iter (t_Array t_Scalar v_T)))
+        (Core.Slice.Iter.t_Iter (t_Array t_Scalar v_T)))
+    #FStar.Tactics.Typeclasses.solve
+    #t_Scalar
+    (Core.Iter.Traits.Iterator.f_zip #(Core.Iter.Adapters.Rev.t_Rev
+          (Core.Slice.Iter.t_Iter (t_Array t_Scalar v_T)))
+        #FStar.Tactics.Typeclasses.solve
+        #(Core.Slice.Iter.t_Iter (t_Array t_Scalar v_T))
+        (Core.Iter.Traits.Iterator.f_rev #(Core.Slice.Iter.t_Iter (t_Array t_Scalar v_T))
+            #FStar.Tactics.Typeclasses.solve
+            (Core.Slice.impl__iter #(t_Array t_Scalar v_T)
+                (Core.Ops.Deref.f_deref #(Alloc.Vec.t_Vec (t_Array t_Scalar v_T)
+                        Alloc.Alloc.t_Global)
+                    #FStar.Tactics.Typeclasses.solve
+                    l
+                  <:
+                  t_Slice (t_Array t_Scalar v_T))
+              <:
+              Core.Slice.Iter.t_Iter (t_Array t_Scalar v_T))
+          <:
+          Core.Iter.Adapters.Rev.t_Rev (Core.Slice.Iter.t_Iter (t_Array t_Scalar v_T)))
+        (Core.Slice.impl__iter #(t_Array t_Scalar v_T)
+            (Core.Ops.Deref.f_deref #(Alloc.Vec.t_Vec (t_Array t_Scalar v_T) Alloc.Alloc.t_Global)
+                #FStar.Tactics.Typeclasses.solve
+                r
+              <:
+              t_Slice (t_Array t_Scalar v_T))
+          <:
+          Core.Slice.Iter.t_Iter (t_Array t_Scalar v_T))
+      <:
+      Core.Iter.Adapters.Zip.t_Zip
+        (Core.Iter.Adapters.Rev.t_Rev (Core.Slice.Iter.t_Iter (t_Array t_Scalar v_T)))
+        (Core.Slice.Iter.t_Iter (t_Array t_Scalar v_T)))
+    impl__ZERO
+    (fun acc temp_1_ ->
+        let acc:t_Scalar = acc in
+        let a, b:(t_Array t_Scalar v_T & t_Array t_Scalar v_T) = temp_1_ in
+        Core.Ops.Arith.f_add #t_Scalar
+          #t_Scalar
+          #FStar.Tactics.Typeclasses.solve
+          acc
+          (inner_prod_scalars v_T a b <: t_Scalar)
+        <:
+        t_Scalar)
+
+/// The Johnnyboi algorithm for multiplying polynomials. FORMALLY VERIFIED
+let jonamul_vec (v_T: usize) (lhs rhs: t_Polynomium (t_Array t_Scalar v_T)) : t_Polynomium t_Scalar =
+  let min_len:usize =
+    Bachelor_formally_verified_stuff.Convert.min #usize
+      (impl_8__len v_T lhs <: usize)
+      (impl_8__len v_T rhs <: usize)
+  in
+  let max_len:usize =
+    Bachelor_formally_verified_stuff.Convert.max #usize
+      (impl_8__len v_T lhs <: usize)
+      (impl_8__len v_T rhs <: usize)
+  in
+  let max_ptr:usize = mk_usize 0 in
+  let lower_bound:usize = mk_usize 0 in
+  let coeffs:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global = Alloc.Vec.impl__new #t_Scalar () in
+  let coeffs, max_ptr:(Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global & usize) =
+    Rust_primitives.Hax.Folds.fold_range (mk_usize 1)
+      min_len
+      (fun temp_0_ temp_1_ ->
+          let coeffs, max_ptr:(Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global & usize) = temp_0_ in
+          let _:usize = temp_1_ in
+          true)
+      (coeffs, max_ptr <: (Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global & usize))
+      (fun temp_0_ i ->
+          let coeffs, max_ptr:(Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global & usize) = temp_0_ in
+          let i:usize = i in
+          let res:t_Scalar =
+            cross_product_vec v_T
+              (Alloc.Slice.impl__to_vec #(t_Array t_Scalar v_T)
+                  (lhs.f_coeffs.[ { Core.Ops.Range.f_end = i } <: Core.Ops.Range.t_RangeTo usize ]
+                    <:
+                    t_Slice (t_Array t_Scalar v_T))
+                <:
+                Alloc.Vec.t_Vec (t_Array t_Scalar v_T) Alloc.Alloc.t_Global)
+              (Alloc.Slice.impl__to_vec #(t_Array t_Scalar v_T)
+                  (rhs.f_coeffs.[ { Core.Ops.Range.f_end = i } <: Core.Ops.Range.t_RangeTo usize ]
+                    <:
+                    t_Slice (t_Array t_Scalar v_T))
+                <:
+                Alloc.Vec.t_Vec (t_Array t_Scalar v_T) Alloc.Alloc.t_Global)
+          in
+          let coeffs:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global =
+            Alloc.Vec.impl_1__push #t_Scalar #Alloc.Alloc.t_Global coeffs res
+          in
+          let max_ptr:usize = i in
+          coeffs, max_ptr <: (Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global & usize))
+  in
+  let largest:t_Polynomium (t_Array t_Scalar v_T) =
+    if (impl_8__len v_T rhs <: usize) >. (impl_8__len v_T lhs <: usize) then rhs else lhs
+  in
+  let smallest:t_Polynomium (t_Array t_Scalar v_T) =
+    if (impl_8__len v_T lhs <: usize) <. (impl_8__len v_T rhs <: usize) then lhs else rhs
+  in
+  let last_in_min:t_Array t_Scalar v_T = new_zero_slice v_T () in
+  let remainder:Alloc.Vec.t_Vec (t_Array t_Scalar v_T) Alloc.Alloc.t_Global =
+    Alloc.Vec.impl__new #(t_Array t_Scalar v_T) ()
+  in
+  let curr_win:Core.Ops.Range.t_Range usize =
+    {
+      Core.Ops.Range.f_start = lower_bound;
+      Core.Ops.Range.f_end
+      =
+      cast (Bachelor_formally_verified_stuff.Convert.min #u128
+            ((cast (lower_bound <: usize) <: u128) +! (cast (min_len <: usize) <: u128) <: u128)
+            (cast (impl_8__len v_T rhs <: usize) <: u128)
+          <:
+          u128)
+      <:
+      usize
+    }
+    <:
+    Core.Ops.Range.t_Range usize
+  in
+  let coeffs, curr_win, lower_bound, remainder:(Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global &
+    Core.Ops.Range.t_Range usize &
+    usize &
+    Alloc.Vec.t_Vec (t_Array t_Scalar v_T) Alloc.Alloc.t_Global) =
+    Rust_primitives.Hax.Folds.fold_range (mk_usize 0)
+      (Alloc.Vec.impl_1__len #(t_Array t_Scalar v_T) #Alloc.Alloc.t_Global largest.f_coeffs <: usize
+      )
+      (fun temp_0_ temp_1_ ->
+          let coeffs, curr_win, lower_bound, remainder:(Alloc.Vec.t_Vec t_Scalar
+              Alloc.Alloc.t_Global &
+            Core.Ops.Range.t_Range usize &
+            usize &
+            Alloc.Vec.t_Vec (t_Array t_Scalar v_T) Alloc.Alloc.t_Global) =
+            temp_0_
+          in
+          let _:usize = temp_1_ in
+          true)
+      (coeffs, curr_win, lower_bound, remainder
+        <:
+        (Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global & Core.Ops.Range.t_Range usize & usize &
+          Alloc.Vec.t_Vec (t_Array t_Scalar v_T) Alloc.Alloc.t_Global))
+      (fun temp_0_ i ->
+          let coeffs, curr_win, lower_bound, remainder:(Alloc.Vec.t_Vec t_Scalar
+              Alloc.Alloc.t_Global &
+            Core.Ops.Range.t_Range usize &
+            usize &
+            Alloc.Vec.t_Vec (t_Array t_Scalar v_T) Alloc.Alloc.t_Global) =
+            temp_0_
+          in
+          let i:usize = i in
+          let lower_bound:usize = i in
+          let remainder:Alloc.Vec.t_Vec (t_Array t_Scalar v_T) Alloc.Alloc.t_Global =
+            Alloc.Slice.impl__to_vec #(t_Array t_Scalar v_T)
+              (largest.f_coeffs.[ { Core.Ops.Range.f_start = i } <: Core.Ops.Range.t_RangeFrom usize
+                ]
+                <:
+                t_Slice (t_Array t_Scalar v_T))
+          in
+          let curr_win:Core.Ops.Range.t_Range usize =
+            {
+              Core.Ops.Range.f_start = i;
+              Core.Ops.Range.f_end
+              =
+              Alloc.Vec.impl_1__len #(t_Array t_Scalar v_T) #Alloc.Alloc.t_Global largest.f_coeffs
+            }
+            <:
+            Core.Ops.Range.t_Range usize
+          in
+          let largest_slice:Alloc.Vec.t_Vec (t_Array t_Scalar v_T) Alloc.Alloc.t_Global =
+            Alloc.Slice.impl__to_vec #(t_Array t_Scalar v_T)
+              (largest.f_coeffs.[ curr_win ] <: t_Slice (t_Array t_Scalar v_T))
+          in
+          let smallest_slice:Alloc.Vec.t_Vec (t_Array t_Scalar v_T) Alloc.Alloc.t_Global =
+            Alloc.Slice.impl__to_vec #(t_Array t_Scalar v_T)
+              (smallest.f_coeffs.[ Core.Ops.Range.RangeFull <: Core.Ops.Range.t_RangeFull ]
+                <:
+                t_Slice (t_Array t_Scalar v_T))
+          in
+          let res:t_Scalar = cross_product_vec v_T smallest_slice largest_slice in
+          let _:Prims.unit =
+            Std.Io.Stdio.e_print (Core.Fmt.impl_4__new_v1 (mk_usize 2)
+                  (mk_usize 1)
+                  (let list = ["mid: "; "\n"] in
+                    FStar.Pervasives.assert_norm (Prims.eq2 (List.Tot.length list) 2);
+                    Rust_primitives.Hax.array_of_list 2 list)
+                  (let list =
+                      [Core.Fmt.Rt.impl_1__new_debug #t_Scalar res <: Core.Fmt.Rt.t_Argument]
+                    in
+                    FStar.Pervasives.assert_norm (Prims.eq2 (List.Tot.length list) 1);
+                    Rust_primitives.Hax.array_of_list 1 list)
+                <:
+                Core.Fmt.t_Arguments)
+          in
+          let _:Prims.unit = () in
+          let coeffs:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global =
+            Alloc.Vec.impl_1__push #t_Scalar #Alloc.Alloc.t_Global coeffs res
+          in
+          coeffs, curr_win, lower_bound, remainder
+          <:
+          (Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global & Core.Ops.Range.t_Range usize & usize &
+            Alloc.Vec.t_Vec (t_Array t_Scalar v_T) Alloc.Alloc.t_Global))
+  in
+  let last_in_min:t_Array t_Scalar v_T =
+    Core.Iter.Traits.Iterator.f_fold (Core.Iter.Traits.Collect.f_into_iter #(Alloc.Vec.t_Vec
+              (t_Array t_Scalar v_T) Alloc.Alloc.t_Global)
+          #FStar.Tactics.Typeclasses.solve
+          smallest.f_coeffs
+        <:
+        Core.Slice.Iter.t_Iter (t_Array t_Scalar v_T))
+      last_in_min
+      (fun last_in_min e ->
+          let last_in_min:t_Array t_Scalar v_T = last_in_min in
+          e)
+  in
+  if min_len =. max_len
+  then { f_coeffs = coeffs } <: t_Polynomium t_Scalar
+  else
+    let coeffs:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global =
+      Rust_primitives.Hax.Folds.fold_range (mk_usize 1)
+        (Alloc.Vec.impl_1__len #(t_Array t_Scalar v_T) #Alloc.Alloc.t_Global remainder <: usize)
+        (fun coeffs temp_1_ ->
+            let coeffs:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global = coeffs in
+            let _:usize = temp_1_ in
+            true)
+        coeffs
+        (fun coeffs i ->
+            let coeffs:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global = coeffs in
+            let i:usize = i in
+            let res:t_Scalar =
+              inner_prod_scalars v_T last_in_min (remainder.[ i ] <: t_Array t_Scalar v_T)
+            in
+            let coeffs:Alloc.Vec.t_Vec t_Scalar Alloc.Alloc.t_Global =
+              Alloc.Vec.impl_1__push #t_Scalar #Alloc.Alloc.t_Global coeffs res
+            in
+            coeffs)
+    in
+    { f_coeffs = coeffs } <: t_Polynomium t_Scalar
+
+[@@ FStar.Tactics.Typeclasses.tcinstance]
+let impl_3__from__polynomium (v_T: usize)
+    : Core.Ops.Arith.t_Mul (t_Polynomium (t_Array t_Scalar v_T))
+      (t_Polynomium (t_Array t_Scalar v_T)) =
+  {
+    f_Output = t_Polynomium t_Scalar;
+    f_mul_pre
+    =
+    (fun (self: t_Polynomium (t_Array t_Scalar v_T)) (rhs: t_Polynomium (t_Array t_Scalar v_T)) ->
+        true);
+    f_mul_post
+    =
+    (fun
+        (self: t_Polynomium (t_Array t_Scalar v_T))
+        (rhs: t_Polynomium (t_Array t_Scalar v_T))
+        (out: t_Polynomium t_Scalar)
+        ->
+        true);
+    f_mul
+    =
+    fun (self: t_Polynomium (t_Array t_Scalar v_T)) (rhs: t_Polynomium (t_Array t_Scalar v_T)) ->
+      jonamul_vec v_T self rhs
   }
 
 /// For extending a polynomial of scalars.

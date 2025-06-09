@@ -61,11 +61,13 @@ include Bachelor_formally_verified_stuff.Bundle {evaluate_polynomial as evaluate
 
 include Bachelor_formally_verified_stuff.Bundle {evaluate_vector_polynomial as evaluate_vector_polynomial}
 
-include Bachelor_formally_verified_stuff.Bundle {simple_vector_polynomial_mul as simple_vector_polynomial_mul}
-
 include Bachelor_formally_verified_stuff.Bundle {jonamul as jonamul}
 
 include Bachelor_formally_verified_stuff.Bundle {cross_product as cross_product}
+
+include Bachelor_formally_verified_stuff.Bundle {jonamul_vec as jonamul_vec}
+
+include Bachelor_formally_verified_stuff.Bundle {cross_product_vec as cross_product_vec}
 
 include Bachelor_formally_verified_stuff.Bundle {add_scalar_polynomium as add_scalar_polynomium}
 

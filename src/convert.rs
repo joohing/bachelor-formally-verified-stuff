@@ -37,3 +37,11 @@ macro_rules! scalar_vec_sized {
         }
     }
 }
+
+pub fn max<T>(a: T, b: T) -> T where T: PartialOrd {
+    if a > b { a } else { b }
+}
+
+pub fn min<T>(a: T, b: T) -> T where T: PartialOrd {
+    if a < b { a } else { b }
+}

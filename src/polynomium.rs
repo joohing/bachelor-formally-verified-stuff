@@ -22,7 +22,7 @@ pub trait Eval<T> {
 impl std::ops::Mul for Polynomium<Scalar> {
     type Output = Self;
     fn mul(self, rhs: Self) -> Self::Output {
-        simple_polynomial_mul(&self, &rhs)
+        jonamul(&self, &rhs)
     }
 }
 
@@ -30,6 +30,13 @@ impl std::ops::Add for Polynomium<Scalar> {
     type Output = Self;
     fn add(self, rhs: Self) -> Self::Output {
         add_scalar_polynomium(&self, &rhs)
+    }
+}
+
+impl std::ops::Sub for Polynomium<Scalar> {
+    type Output = Self;
+    fn sub(self, rhs: Self) -> Self::Output {
+        sub_scalar_polynomium(&self, &rhs)
     }
 }
 
@@ -188,38 +195,93 @@ fn simple_vector_polynomial_mul<'a, const T: usize>(l: &Polynomium<vec<'a, T>>, 
     Polynomium { coeffs }
 }
 
-/// A simple, O(n²) algorithm for multiplying polynomials together.
-#[options("--z3rlimit 100")]
-#[requires(l.len() >= 0 && l.len() <= usize::MAX
-        && r.len() >= 0 && r.len() <= usize::MAX)]
-#[ensures(|res| res.len() >= 0 && res.len() <= usize::MAX)]
-fn simple_polynomial_mul(l: &Polynomium<Scalar>, r: &Polynomium<Scalar>) -> Polynomium<Scalar> {
-    if l.coeffs.is_empty() || r.coeffs.is_empty() {
-        return Polynomium { coeffs: vec![Scalar::ZERO] };
+// ------- NOT CORRECT :( -------
+// /// A simple, O(n²) algorithm for multiplying polynomials together.
+// #[options("--z3rlimit 100")]
+// #[requires(l.len() >= 0 && l.len() <= usize::MAX
+//         && r.len() >= 0 && r.len() <= usize::MAX)]
+// #[ensures(|res| res.len() >= 0 && res.len() <= usize::MAX)]
+// fn simple_polynomial_mul(l: &Polynomium<Scalar>, r: &Polynomium<Scalar>) -> Polynomium<Scalar> {
+//     if l.coeffs.is_empty() || r.coeffs.is_empty() {
+//         return Polynomium { coeffs: vec![Scalar::ZERO] };
+//     }
+
+//     let min_len = if l.len() < r.len() { l.len() } else { r.len() };
+//     let max_len = if l.len() > r.len() { l.len() } else { r.len() };
+//     let mut coeffs = Vec::with_capacity(max_len);
+
+//     for i in 0..min_len {
+//         let sum = r.coeffs.iter().fold(Scalar::ZERO, |acc, e| acc + *e * l.coeffs[i]);
+//         coeffs.push(sum);
+//     }
+
+//     if min_len == l.len() {
+//         for i in min_len..r.len() {
+//             let sum = l.coeffs.iter().fold(Scalar::ZERO, |acc, e| acc + *e * r.coeffs[i]);
+//             coeffs.push(sum);
+//         }
+//     } else if min_len == r.len() {
+//         for i in min_len..l.len() {
+//             let sum = r.coeffs.iter().fold(Scalar::ZERO, |acc, e| acc + *e * l.coeffs[i]);
+//             coeffs.push(sum);
+//         }
+//     }
+
+//     Polynomium { coeffs }
+// }
+
+/// The Johnnyboi algorithm for multiplying polynomials
+fn jonamul(lhs: &Polynomium<Scalar>, rhs: &Polynomium<Scalar>) -> Polynomium<Scalar> {
+    let min_len = min(lhs.len(), rhs.len());
+    let max_len = max(lhs.len(), rhs.len());
+    let mut max_ptr = 0;
+    let mut lower_bound = 0;
+    let mut coeffs = vec![];
+
+    // 3 parts; first add cross products until min_len is reached
+    for i in 1..min_len {
+        let res = cross_product(&lhs.coeffs[..i].to_vec(), &rhs.coeffs[..i].to_vec());
+        coeffs.push(res);
+        max_ptr = i;
     }
 
-    let min_len = if l.len() < r.len() { l.len() } else { r.len() };
-    let max_len = if l.len() > r.len() { l.len() } else { r.len() };
-    let mut coeffs = Vec::with_capacity(max_len);
+    let largest = if rhs.len() > lhs.len() { rhs } else { lhs };
+    let smallest = if lhs.len() < rhs.len() { lhs } else { rhs };
+    let mut last_in_min = Scalar::ZERO;
+    let mut remainder = vec![];
+    let mut curr_win = lower_bound..min((lower_bound as u128) + (min_len as u128), rhs.len() as u128) as usize;
 
-    for i in 0..min_len {
-        let sum = r.coeffs.iter().fold(Scalar::ZERO, |acc, e| acc + *e * l.coeffs[i]);
-        coeffs.push(sum);
+    // Then add cross products while increasing the lower bound
+    for i in 0..largest.coeffs.len() {
+        lower_bound = i;
+        remainder = largest.coeffs[i..].to_vec();
+        curr_win = i..largest.coeffs.len();
+        let largest_slice = &largest.coeffs[curr_win].to_vec();
+        let smallest_slice = &smallest.coeffs[..].to_vec();
+        let res = cross_product(smallest_slice, largest_slice);
+        println!("mid: {:?}", res);
+        coeffs.push(res);
     }
 
-    if min_len == l.len() {
-        for i in min_len..r.len() {
-            let sum = l.coeffs.iter().fold(Scalar::ZERO, |acc, e| acc + *e * r.coeffs[i]);
-            coeffs.push(sum);
-        }
-    } else if min_len == r.len() {
-        for i in min_len..l.len() {
-            let sum = r.coeffs.iter().fold(Scalar::ZERO, |acc, e| acc + *e * l.coeffs[i]);
-            coeffs.push(sum);
-        }
+    // Quick sidequest to find the last entry in the smallest one
+    for e in &smallest.coeffs {
+        last_in_min = *e;
+    }
+
+    if min_len == max_len { return Polynomium { coeffs };}
+
+    // Then add products between smallest.last() and largest[...]
+    for i in 1..remainder.len() {
+        let res = last_in_min * remainder[i];
+        coeffs.push(res);
     }
 
     Polynomium { coeffs }
+}
+
+/// Returns [1, 2, 3] x [1, 2, 3] => [1 * 3, 2 * 2, 3 * 1]
+fn cross_product(l: &Vec<Scalar>, r: &Vec<Scalar>) -> Scalar {
+    l.iter().rev().zip(r.iter()).fold(Scalar::ZERO, |acc, (&a, &b)| acc + a * b)
 }
 
 #[options("--z3rlimit 100")]
@@ -241,11 +303,39 @@ fn add_scalar_polynomium(lhs: &Polynomium<Scalar>, rhs: &Polynomium<Scalar>) -> 
     }
 }
 
+#[options("--z3rlimit 100")]
+#[requires(lhs.len() >= 0 && lhs.len() <= usize::MAX
+        && rhs.len() >= 0 && rhs.len() <= usize::MAX)]
+#[ensures(|res| res.len() >= 0 && res.len() <= usize::MAX)]
+fn sub_scalar_polynomium(lhs: &Polynomium<Scalar>, rhs: &Polynomium<Scalar>) -> Polynomium<Scalar> {
+    let min_len = if lhs.len() < rhs.len() { lhs.len() } else { rhs.len() };
+    let mut coeffs = vec![];
+    for i in 0..min_len {
+        coeffs.push(lhs.coeffs[i] - rhs.coeffs[i]);
+    }
+    Polynomium {
+        coeffs: if min_len < lhs.len() {
+            extend_from_neg(&coeffs.to_vec(), &lhs.coeffs.to_vec())
+        } else if min_len < rhs.len() {
+            extend_from_neg(&coeffs.to_vec(), &rhs.coeffs.to_vec())
+        } else { coeffs.to_vec() }
+    }
+}
+
 /// For extending a polynomial of scalars.
 fn extend_from(lhs: &Vec<Scalar>, rhs: &Vec<Scalar>) -> Vec<Scalar> {
     let mut res = lhs.clone();
     for i in 0..rhs.len() {
         res.push(rhs[i]);
+    }
+    res
+}
+
+/// For extending a polynomial of scalars with the negation.
+fn extend_from_neg(lhs: &Vec<Scalar>, rhs: &Vec<Scalar>) -> Vec<Scalar> {
+    let mut res = lhs.clone();
+    for i in 0..rhs.len() {
+        res.push(Scalar::ZERO - rhs[i]);
     }
     res
 }

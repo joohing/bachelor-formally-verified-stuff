@@ -109,7 +109,7 @@ mod tests {
         res
     }
 
-    /// Random vector of scalars, sized 
+    /// Random vector of scalars, sized
     pub fn random_vec_sized<'a, const T: usize>() -> vec<'a, T> {
         let mut rng = Drbg::new(Algorithm::Sha512).unwrap();
         let mut v = new_zero_slice();
@@ -120,7 +120,7 @@ mod tests {
         v
     }
 
-    /// Random vector of scalars 
+    /// Random vector of scalars
     pub fn random_vec<T>(n: T) -> Vec<Scalar> where usize: From<T>{
         let mut rng = Drbg::new(Algorithm::Sha512).unwrap();
         let n = usize::from(n);
@@ -198,22 +198,126 @@ mod tests {
 
         let x = Scalar::from(2 as u128);
 
-        println!("l: {:#?}", l);
-        println!("r: {:#?}", r);
-        println!("t: {:#?}", t);
+        println!("l: {:?}", l);
+        println!("r: {:?}", r);
+        println!("t: {:?}", t);
 
         let l_x = l.eval(x);
         let r_x = r.eval(x);
         let t_x = t.eval(x);
 
-        println!("l eval: {:#?}", l.eval(x));
-        println!("r eval: {:#?}", r.eval(x));
-        println!("t eval: {:#?}", t.eval(x));
+        println!("l eval: {:?}", l.eval(x));
+        println!("r eval: {:?}", r.eval(x));
+        println!("t eval: {:?}", t.eval(x));
 
         assert_eq!(t_x, l_x * r_x);
     }
 
-/*
+    #[test]
+    /// Test yet another simple case
+    fn test_weird_shape_scalar_polynomial_multiplication() {
+        let cl = vec![Scalar::from(15u128)];
+        let cr = vec![Scalar::from(1u128), Scalar::from(9u128)];
+        let res = vec![Scalar::from(15u128), Scalar::from(16u128)];
+
+        let l = Polynomium::new_from_scalar(&cl);
+        let r = Polynomium::new_from_scalar(&cr);
+
+        let t = l.clone() * r.clone();
+        assert_eq!(t, Polynomium { coeffs: res });
+
+        let x = Scalar::from(2 as u128);
+
+        println!("l: {:?}", l);
+        println!("r: {:?}", r);
+        println!("t: {:?}", t);
+
+        let l_x = l.eval(x);
+        let r_x = r.eval(x);
+        let t_x = t.eval(x);
+
+        println!("l eval: {:?}", l.eval(x));
+        println!("r eval: {:?}", r.eval(x));
+        println!("t eval: {:?}", t.eval(x));
+
+        // Should be 13
+        assert_eq!(t_x, l_x * r_x);
+    }
+
+    #[test]
+    /// Okay last one i promise
+    fn test_another_weird_shape_scalar_polynomial_multiplication() {
+        let cl = vec![Scalar::from(3u128), Scalar::from(4u128)];
+        let cr = vec![Scalar::from(14u128), Scalar::from(6u128), Scalar::from(7u128)];
+        let res = vec![Scalar::from(8u128), Scalar::from(6u128), Scalar::from(11u128), Scalar::from(11u128)];
+
+        let l = Polynomium::new_from_scalar(&cl);
+        let r = Polynomium::new_from_scalar(&cr);
+
+        let t = l.clone() * r.clone();
+        assert_eq!(t, Polynomium { coeffs: res });
+
+        let x = Scalar::from(2 as u128);
+
+        println!("l: {:?}", l);
+        println!("r: {:?}", r);
+        println!("t: {:?}", t);
+
+        let l_x = l.eval(x);
+        let r_x = r.eval(x);
+        let t_x = t.eval(x);
+
+        println!("l eval: {:?}", l.eval(x));
+        println!("r eval: {:?}", r.eval(x));
+        println!("t eval: {:?}", t.eval(x));
+
+        // Should be 13
+        assert_eq!(t_x, l_x * r_x);
+    }
+
+    #[test]
+    /// Another edge case
+    fn test_another_another_weird_shape_scalar_polynomial_multiplication() {
+        let cl = vec![Scalar { v: 11 }, Scalar { v: 8 }];
+        let cr = vec![Scalar { v: 14 }, Scalar { v: 6 }, Scalar { v: 8 }, Scalar { v: 6 }, Scalar { v: 12 }, Scalar { v: 3 }, Scalar { v: 5 }, Scalar { v: 11 }];
+
+        // 154 + 178 x + 136 x^2 + 130 x^3 + 180 x^4 + 129 x^5 + 79 x^6 + 161 x^7 + 88 x^8
+        let res = vec![
+            Scalar::from(154),
+            Scalar::from(178),
+            Scalar::from(136),
+            Scalar::from(130),
+            Scalar::from(180),
+            Scalar::from(129),
+            Scalar::from(79),
+            Scalar::from(161),
+            Scalar::from(88),
+        ];
+
+        let l = Polynomium::new_from_scalar(&cl);
+        let r = Polynomium::new_from_scalar(&cr);
+
+        let t = l.clone() * r.clone();
+        assert_eq!(t, Polynomium { coeffs: res });
+
+        let x = Scalar::from(2 as u128);
+
+        println!("l: {:?}", l);
+        println!("r: {:?}", r);
+        println!("t: {:?}", t);
+
+        let l_x = l.eval(x);
+        let r_x = r.eval(x);
+        let t_x = t.eval(x);
+
+        println!("l eval: {:?}", l.eval(x));
+        println!("r eval: {:?}", r.eval(x));
+        println!("t eval: {:?}", t.eval(x));
+
+        // Should be 13
+        assert_eq!(t_x, l_x * r_x);
+    }
+
     #[quickcheck]
     /// Test multiplication of scalar polynomials
     fn test_scalar_polynomial_multiplication(m: u128, n: u128) -> bool {
@@ -231,30 +335,31 @@ mod tests {
         let t = l.clone() * r.clone();
         let x = Scalar::from(2 as u128);
 
-        println!("l: {:#?}", l);
-        println!("r: {:#?}", r);
-        println!("t: {:#?}", t);
-
         let l_x = l.eval(x);
         let r_x = r.eval(x);
         let t_x = t.eval(x);
 
-        println!("l eval: {:#?}", l.eval(x));
-        println!("r eval: {:#?}", r.eval(x));
-        println!("t eval: {:#?}", t.eval(x));
+        println!("l: {:?}", l);
+        println!("r: {:?}", r);
+        println!("t: {:?}", t);
+
+        println!("l eval: {:?}", l_x);
+        println!("r eval: {:?}", r_x);
+        println!("l * r: {:?}", l_x * r_x);
+        println!("t eval: {:?}", t_x);
 
         t_x == l_x * r_x
     }
 
     #[quickcheck]
     /// Test multiplication of vector polynomials.
-    fn test_vector_polynomial_multiplication<'a, const T: usize>(m: u128, n: u128, i: u128) {
+    fn test_vector_polynomial_multiplication(m: u128, n: u128, i: u128) {
         let m = m % 30;
         let n = n % 30;
         let i = i % 40;
 
-        let cl: Vec<vec<'a, { T }>> = (0..m+1).map(|_| random_vec_sized()).collect();
-        let cr: Vec<vec<'a, { T }>> = (0..n+1).map(|_| random_vec_sized()).collect();
+        let cl: Vec<vec<'static, 10>> = (0..m+1).map(|_| random_vec_sized()).collect();
+        let cr: Vec<vec<'static, 10>> = (0..n+1).map(|_| random_vec_sized()).collect();
 
         let l = Polynomium::new_from_vec(cl);
         let r = Polynomium::new_from_vec(cr);
@@ -270,6 +375,7 @@ mod tests {
         assert_eq!(t_x, res);
     }
 
+/*
     #[quickcheck]
     /// Tests the trim method for scalar polynomiums.
     fn test_polynomium_trims<'a, const T: usize>(n: u128, i: u128) {
